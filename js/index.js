@@ -53,15 +53,41 @@ function initMap() {
     map.setCenter(center);
   });
 
+  var geocoder = new google.maps.Geocoder;
+  var infowindow = new google.maps.InfoWindow;
+
   ADH = new AutocompleteDirectionsHandler(map);
 }
 
+
+// function geocodeLatLng(geocoder, map, infowindow) {
+//   var input = pos;
+//   console.log(input);
+//   var latlngStr = input.split(',', 2);
+//   var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+//   geocoder.geocode({'location': latlng}, function(results, status) {
+//     if (status === 'OK') {
+//       if (results[1]) {
+//         map.setZoom(11);
+//         var marker = new google.maps.Marker({
+//           position: latlng,
+//           map: map
+//         });
+//         infowindow.setContent(results[1].formatted_address);
+//         infowindow.open(map, marker);
+//       } else {
+//         window.alert('No results found');
+//       }
+//     } else {
+//       window.alert('Geocoder failed due to: ' + status);
+//     }
+//   });
+// }
 
 function AutocompleteDirectionsHandler(map) {
 
   //IE8 retornando opções de endereços
   if(IE) return;
-
   // Pedindo permissão ao usuário - Geolocation
   var infoWindow = new google.maps.InfoWindow({map: map});
   if (navigator.geolocation) {
@@ -71,6 +97,33 @@ function AutocompleteDirectionsHandler(map) {
         lng: position.coords.longitude
       };
       console.log(pos);
+
+      var input = pos;
+      console.log(pos.lat);
+      var latlngStr = input.split(',', 2);
+      var latlng = {
+        lat: parseFloat(latlngStr[0]),
+        lng: parseFloat(latlngStr[1])
+      };
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === 'OK') {
+          if (results[1]) {
+            map.setZoom(11);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map
+            });
+            infowindow.setContent(results[1].formatted_address);
+            infowindow.open(map, marker);
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+      // console.log(pos.address_components);
+
       // var latlng 	 = new google.maps.LatLng(pos);
       // var geocoder = new google.maps.Geocoder();
       // console.log(latlng);
@@ -95,6 +148,7 @@ function AutocompleteDirectionsHandler(map) {
   //   },
   //   function() {console.log("Geolocation not available.")});
   // }
+
 
   var symbolOne = {
     path: 'M -2,0 0,-2 2,0 0,2 z',
@@ -176,6 +230,7 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
       } else {
         placeDetails.city = ""
       }
+      // console.log(place.address_components);
       console.log(placeDetails.city);
 
       if (place.address_components[i].types[0] == "administrative_area_level_1") {
@@ -480,9 +535,8 @@ function closeNav() {
   document.getElementById('exi').style.display = "none";
   document.getElementById('menu').style.borderBottom = "hidden";
   document.getElementById("menuHistorico").style.display = "none";
-
-
-
+  document.getElementById("menuFavorito").style.display = "none";
+  document.getElementById("politica").style.marginTop = "380px";
 
 }
 
@@ -626,9 +680,12 @@ window.onload = function(){
   document.getElementById('datntim').innerHTML = (diaSemana + ', ' + dia + '/' + mesCorreto + '/' + ano);
   //puxando arrays de outro script e escrevendo no html
   document.getElementById("cTec").innerHTML = htmlCt;
-  // document.getElementById('favMapa').innerHTML = mapaHtml;
+  document.getElementById('favMapa').innerHTML = mapaHtml;
+  // document.getElementById('favoritos').innerHTML = htmlf;
   // document.getElementById('historico').innerHTML = htmlHist;
   getHistorico();
+  mostrarFavoritos();
+
   //
   document.getElementById('origin-input').onfocus = function() {foco=1};
   document.getElementById('destination-input').onfocus = function() {foco=2};

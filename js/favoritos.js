@@ -1,4 +1,3 @@
-
 var api =
 {
 	novoFav : function(fav){
@@ -25,15 +24,17 @@ function mostrarFavoritos(){
 	isAutocomplete = [];
 	autocompletes = [];
 	var htmlf = "";
+
 	for (var i = 0; i < favoritos.length; i++){
-		// htmlf += '<li class="listaFav"><label>Nome</label><input class="nomeFav" value="' + favoritos[i].nome + '" onkeyup="verifyName(' + i + ')">';
-		// htmlf += '<label>Endereço</label><input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + i + ')">';
-		// htmlf += '<button id="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';
-		// htmlf += '<span class="salvo-span">Salvo</span></li>';
+		htmlf += '<li class="listaFav"><input class="nameFav" value="' + favoritos[i].name + '" onkeyup="verifyName(' + i + ')">';
+		htmlf += '<input class="placeFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + i + ')">';
+		htmlf += '<button class="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';
+		htmlf += '</li>';
 
 		isAutocomplete[i] = false;
 	}
-	// document.getElementById('favoritos').innerHTML = htmlf;
+	htmlf += '<button class="salvaFav">Salvar</button>';
+	document.getElementById('favoritos').innerHTML = htmlf;
 }
 
 function deleteFav(inputN){
@@ -83,27 +84,27 @@ function verifyName(inputN){
 	}, 2000);
 }
 
-// var isAutocomplete = [];
-// function verifyAutocomplete(inputN){
-// 	var input = document.getElementsByClassName('localFav')[inputN];
-//
-// 	if(input.value.length >= 4 && !isAutocomplete[inputN]){
-// 		isAutocomplete[inputN] = true;
-//
-// 		autocompletes[inputN] = new google.maps.places.Autocomplete((input), {types: ['geocode']});
-// 		autocompletes[inputN].n = inputN;
-// 		autocompletes[inputN].addListener('place_changed', fillFav);
-//
-// 	}else if(input.value.length <= 3){
-// 		isAutocomplete[inputN] = false;
-//
-// 		var contArray = document.getElementsByClassName('pac-container');
-// 		for (var i = 0; i < contArray.length; i++) {
-// 			contArray[i].style.display = "none";
-// 		}
-// 		google.maps.event.clearListeners(input);
-// 	}
-// }
+var isAutocomplete = [];
+function verifyAutocomplete(inputN){
+	var input = document.getElementsByClassName('localFav')[inputN];
+
+	if(input.value.length >= 4 && !isAutocomplete[inputN]){
+		isAutocomplete[inputN] = true;
+
+		autocompletes[inputN] = new google.maps.places.Autocomplete((input), {types: ['geocode']});
+		autocompletes[inputN].n = inputN;
+		autocompletes[inputN].addListener('place_changed', fillFav);
+
+	}else if(input.value.length <= 3){
+		isAutocomplete[inputN] = false;
+
+		var contArray = document.getElementsByClassName('pac-container');
+		for (var i = 0; i < contArray.length; i++) {
+			contArray[i].style.display = "none";
+		}
+		google.maps.event.clearListeners(input);
+	}
+}
 
 var autocompletes = [];
 function initAutocomplete(){};
@@ -117,3 +118,9 @@ function fillFav() {
 
 	api.atualizaFav(favoritos[this.n]);
 }
+
+// htmlFavMenu = "<div class='cabecalho'><span>Nome</span><span>Endereço</span><span>Excluir</span></div>";
+//
+// for (var i = 0; i < favoritos.length; i++) {
+// 	htmlFavMenu = "<"
+// }
