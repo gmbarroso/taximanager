@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Taxi Manager</title>
+  <!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link href="./css/sidemenu.css" rel="stylesheet">
+  <link href="./css/players.css" rel="stylesheet">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaMueYa5V3V-KwlbAfqd5EfTh52fpybeE&libraries=places&callback=initMap" async defer></script>
+  <!--<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">-->
+
+  <link href="./css/style.css" rel="stylesheet">
+  <script src="./js/index.js"></script>
+  <script src="./js/historico.js"></script>
+  <script src="./js/favoritos.js"></script>
+  <script src="./js/variaveis.js"></script>
+  <link href="./css/historico.css" rel="stylesheet">
+  <link href="./css/favoritos.css" rel="stylesheet">
+  <link href="./css/modal.css" rel="stylesheet">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+  <!-- <div id="players" class="players">
+  <a href="javascript:void(0)" class="closePlayers" onclick="hidePlayers()">&times;</a>
+  <div id="opcoes"> -->
+  <!-- Espaço que será preenchido com as opções de prestadores retornados pela API -->
+  <!-- </div>
+  <div id="corrida">
+</div>
+</div> -->
+
+      <div id="header">
+        <div id="modalFavorito" class="modalFav">
+          <div class="modalFavbox">
+            <span class="closeModalFav" onclick="closeModalFav()">&times;</span>
+            <p><b>Novo Favorito</b></p>
+            <input class="nomeFav" value="" placeholder="Nome" onkeyup="verifyName(i)">
+            <input class="localFav" value="" placeholder="Endereço" onkeyup="">
+            <button class="saveFav" type="button" name="button">Salvar</button>
+            <button class="cancelFav" type="button" name="button" onclick="closeModalHist()">Cancelar</button>
+          </div>
+        </div>
+        <div id="modalHistorico" class="modalHist">
+          <div id="modalHistbox">
+        </div>
+      </div>
+      <div id="menu">
+        <div id="hamburger" onclick="openNav(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+        <img id="exi" src="img/x.png" alt="" onclick="closeNav()">
+        <div id="texto">
+          <a href="#" class="duvidas">Dúvidas Frequentes</a>
+          <a href="index.html" class="logout">Logout</a>
+        </div>
+        <img id="taxi" src="img/Logo_TaxiManager.png" alt="">
+      </div>
+
+      <div id="subheader">
+        <div id="sobre">
+          <h4><b>Sobre o TM</b></h4>
+          <p href="#">Como Funciona?</p>
+          <p href="#">Segurança</p>
+        </div>
+        <div id="config">
+          <h4><b>Configurações</b></h4>
+          <p>Meu Perfil</p>
+          <p onclick="menuHist()">Meu Histórico</p>
+          <p onclick="menuFav()">Favoritos</p>
+        </div>
+        <footer id="politica">
+          <img id="userLocal" src="img/location.png" onclick="centralizar()">
+          <span>São Paulo - Brasil</span>
+          <a href="#">Política de Uso</a>
+        </footer>
+      </div>
+      <div id="menuHistorico">
+        <h1>Meu Histórico</h1>
+        <img id="exiHist" src="img/x.png" alt="" onclick="closeMenuHist()">
+        <table id="historico">
+          <!-- <tbody>
+            <tr>
+              <th>Data e Hora</th>
+              <th>Partida</th>
+              <th>Destino</th>
+              <th>Valor</th>
+            </tr> -->
+        </table>
+      </div>
+      <div id="menuFavorito">
+        <h1>Meus Favoritos</h1>
+        <img id="exiFav" src="img/x.png" alt="" onclick="closeMenuFav()">
+        <table id="favoritos">
+        </table>
+      </div>
+    </div>
+
+    <div id="box">
+      <div id="user">
+        <img id="imgPerfil" src="./img/itau-logo.png" alt="">
+        <span>Olá, Fulano. Seja bem-vindo</span>
+        <img id="setabaixo" src="./img/dropdown.png" onclick="showBox()">
+        <img id="setacima" src="./img/dropup.png" onclick="hideBox()">
+      </div>
+      <div id="box-content">
+        <p id="datntim"></p>
+        <div id="go">
+          <img id="invert" src="./img/connection.png" alt="" onclick="inverter()">
+
+          <img src="img/arrow.png" id="calcular" onclick="showPlayers()">
+
+        </div>
+        <div id="inputs">
+          <input id="origin-input" class="controls" type="text" placeholder="Local de origem" style="border-bottom: 1px solid #BBB" onkeyup="verifyAutocomplete('origin-input')">
+          <div id="autocomplete-o"></div>
+          <input id="destination-input" class="controls" type="text" placeholder="Local de chegada"  onkeyup="verifyAutocomplete('destination-input')">
+          <div id="autocomplete-d"></div>
+
+        </div>
+        <br>
+        <!-- <img src="img/arrow.png" id="calcular" onclick="ADH.route()">-->
+
+        <div id="players" class="players">
+          <div id="corrida">
+
+          </div>
+          <div id="infoOp">
+            <p>Fornecedor</p>
+            <img class="moneyicon" src="./img/money.png" alt="">
+            <img class="clockicon" src="./img/clock.png" alt="">
+          </div>
+          <div id="opcoes">
+
+
+
+          </div>
+
+        </div>
+
+        <div id="cache">
+        </div>
+
+        <div id="cTec">
+        </div>
+        <!-- <div id="opcoes"> -->
+        <!-- Espaço que será preenchido com as opções de prestadores retornados pela API -->
+        <!-- </div> -->
+        <div id="favMapa">
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div id="map" class="col-sm-12">
+    </div>
+  </body>
+  </html>

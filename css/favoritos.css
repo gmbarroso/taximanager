@@ -1,0 +1,59 @@
+#favoritos p {
+  vertical-align: middle;
+}
+
+.nomeFav, .localFav {
+  width: 290px;
+  height: 30px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.saveFav, .cancelFav {
+  width: 80px;
+  height: 35px;
+  display: inline-block;
+  float: right;
+  margin-top: 2px;
+  margin-left: 5px;
+  background-color: white;
+  border-color: #bbb;
+  border-width: 1px;
+  color: #bbb;
+}
+
+.saveFav:hover, .cancelFav:hover {
+  cursor: pointer;
+  background-color: #bbb;
+  color: white;
+  border-width: 1px;
+  border-color: #bbb
+
+}
+
+#newFav {
+  width: 12px;
+  display: inline;
+  margin-top: 5px;
+  margin-left: 10px;
+  display: none;
+  /*float:right;
+  display: inline;
+  background: black;
+  color: #FDDE0A;
+  border-radius: 5px;
+  border: none;
+  margin-right: 15px;*/
+}
+
+#newFav:hover {
+  cursor: pointer;
+  /*float:right;
+  display: inline;
+  background: #FDDE0A;
+  color: black;
+  border-radius: 5px;
+  border-color: black;
+  border-width: medium;
+  margin-right: 15px;*/
+}

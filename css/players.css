@@ -1,0 +1,96 @@
+#players {
+  display: none;
+}
+
+#infoOp {
+  border: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+  height: 45px;
+
+}
+
+#infoOp p {
+  padding-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#infoOp img {
+  display: inline;
+  width: 20px;
+  vertical-align: middle;
+}
+
+.moneyicon {
+  margin-left: 71px;
+}
+
+.clockicon {
+  margin-left: 31px;
+}
+
+#opcoes {
+  margin-top: 5px;
+  height: auto;
+  border: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+}
+
+#opcoes img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+
+.listaPrecos {
+  list-style-type: none;
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.listaPrecos p {
+  display: inline;
+  vertical-align: middle;
+  padding-left: 5px;
+}
+
+.listaPrecos li {
+  margin-top: 10px;
+}
+
+.spacetipo {
+  display: inline-block;
+  width: 100px;
+}
+
+.listaPrecos span {
+  padding-left: 10px;
+  /*padding-right: 30px;*/
+  text-align: left;
+  display: inline-block;
+}
+
+.spaceprice {
+  width: 50px;
+  padding-left: 0px;
+}
+
+.a {
+  margin-left: 50px;
+  display: inline-block;
+  width: 40px;
+  background-color: #FE5900;
+  text-align: center;
+  height: 20px;
+}
+
+.listaPrecos a {
+  color: white;
+  vertical-align: middle;
+  text-decoration: none;
+  padding-top: 1px;
+}
