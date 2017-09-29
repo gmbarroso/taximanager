@@ -314,7 +314,7 @@ transform: rotate(45deg) translate(-4px, -4px) ;
   padding: 20px;
   /*transition: height 5s;*/
   height: 460px;;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #go {
