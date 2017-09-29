@@ -115,7 +115,6 @@ function showDetails(i) {
 
 function closeModalHist(i) {
 	document.getElementById("modalHistorico").style.display = "none";
-
 	// document.getElementsByClassName('detalhes')[i].style.display = "block";
 	document.getElementsByClassName('trajeto')[i].style.display = "none";
 	document.getElementsByClassName('cdc')[i].style.display = "none";

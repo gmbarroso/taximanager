@@ -53,36 +53,8 @@ function initMap() {
     map.setCenter(center);
   });
 
-  var infowindow = new google.maps.InfoWindow;
-  console.log(infowindow);
-
   ADH = new AutocompleteDirectionsHandler(map);
 }
-
-
-// function geocodeLatLng(geocoder, map, infowindow) {
-//   var input = pos;
-//   console.log(input);
-//   var latlngStr = input.split(',', 2);
-//   var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
-//   geocoder.geocode({'location': latlng}, function(results, status) {
-//     if (status === 'OK') {
-//       if (results[1]) {
-//         map.setZoom(11);
-//         var marker = new google.maps.Marker({
-//           position: latlng,
-//           map: map
-//         });
-//         infowindow.setContent(results[1].formatted_address);
-//         infowindow.open(map, marker);
-//       } else {
-//         window.alert('No results found');
-//       }
-//     } else {
-//       window.alert('Geocoder failed due to: ' + status);
-//     }
-//   });
-// }
 
 function AutocompleteDirectionsHandler(map) {
 
@@ -100,119 +72,68 @@ function AutocompleteDirectionsHandler(map) {
       };
       console.log(pos);
       console.log(pos.lat);
-      // var latlngStr = pos.split(',', 2);
-      // console.log(latlngStr);
-      // var latlng = {
-      //   lat: parseFloat(pos.lat),
-      //   lng: parseFloat(pos.lng)
-      // };
-      // console.log(latlng);
 
+      // Retornando Local do usuário em Str
+      geocoder.geocode({'location': pos}, function(results, status) {
+        if (status === 'OK') {
+          if (results[1]) {
+            // infoWindow.setContent(results[1].formatted_address);
+            console.log(results[1]);
+            console.log(results[1].formatted_address);
+            console.log(results[1].address_components[3].long_name + ', ' + results[1].address_components[5].short_name );
+            // infoWindow.open(map, marker);
+            document.getElementById('localizacaoUser').innerHTML = '<span>' + results[1].address_components[3].long_name + ', ' + results[1].address_components[5].short_name  + '</span>';
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
 
-      // var latlng 	 = new google.maps.LatLng(pos);
-      // var geocoder = new google.maps.Geocoder();
-      // console.log(latlng);
-      // console.log(geocoder);
-      // geocoder.geocode({'latLng': latlng}, function(results, status) {
-      //   console.log(results);
-      // };
-  //       if (status == google.maps.GeocoderStatus.OK) {
-  //         if (results[1]) {
-  //           for (var i = 0; i < results.length; i++) {
-  //             if (results[i].types[0] === "locality") {
-  //               var city = results[i].address_components[0].short_name;
-  //               var state = results[i].address_components[2].short_name;
-  //               $("input[name='location']").val(city + ", " + state);
-  //             }
-  //           }
-  //         }
-  //         else {console.log("No reverse geocode results.")}
-  //       }
-  //       else {console.log("Geocoder failed: " + status)}
-  //     });
-  //   },
-  //   function() {console.log("Geolocation not available.")});
-  // }
+      var symbolOne = {
+        path: 'M -2,0 0,-2 2,0 0,2 z',
+        strokeColor: '#F00',
+        fillColor: '#F00',
+        fillOpacity: 1
+      };
 
-
-  var symbolOne = {
-    path: 'M -2,0 0,-2 2,0 0,2 z',
-    strokeColor: '#F00',
-    fillColor: '#F00',
-    fillOpacity: 1
-  };
-
-  var marker = new google.maps.Marker({
-    position: pos,
-    icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 10,
-      fillColor: '#165dce',
-      fillOpacity: 1.0,
-      strokeColor: 'black',
-      strokeOpacity: 0.4,
-      strokeWeight: 10
+      var marker = new google.maps.Marker({
+        position: pos,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: '#165dce',
+          fillOpacity: 1.0,
+          strokeColor: 'black',
+          strokeOpacity: 0.4,
+          strokeWeight: 10
+        },
+        map: map,
+        title: 'Você está aqui'
+      });
+      map.setCenter(pos);
     },
-    map: map,
-    title: 'Você está aqui'
-  });
+    function() {
+      //
+    });
+  }
 
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
 
+  originAutocomplete = new google.maps.places.Autocomplete(originInput, {placeIdOnly: false});
+  destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, {placeIdOnly: false});
 
-  geocoder.geocode({'location': pos}, function(results, status) {
-    if (status === 'OK') {
-      if (results[1]) {
-        // map.setZoom(11);
-        // var marker = new google.maps.Marker({
-        //   position: pos,
-        //   map: map
-        // });
-        console.log('tudo ok');
-        infowindow.setContent(results[1].formatted_address);
-        console.log(results[1].formatted_address);
-
-        infowindow.open(map, marker);
-      } else {
-        window.alert('No results found');
-      }
-    } else {
-      window.alert('Geocoder failed due to: ' + status);
-    }
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-  map.setCenter(pos);
-},
-function() {
-  //
-});
-}
-
-this.map = map;
-this.originPlaceId = null;
-this.destinationPlaceId = null;
-this.travelMode = 'DRIVING';
-var originInput = document.getElementById('origin-input');
-var destinationInput = document.getElementById('destination-input');
-this.directionsService = new google.maps.DirectionsService;
-this.directionsDisplay = new google.maps.DirectionsRenderer;
-this.directionsDisplay.setMap(map);
-
-originAutocomplete = new google.maps.places.Autocomplete(originInput, {placeIdOnly: false});
-destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, {placeIdOnly: false});
-
-this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 }
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
