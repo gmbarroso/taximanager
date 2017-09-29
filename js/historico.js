@@ -59,7 +59,7 @@ function showHist(){
 		htmlHist += '</tr></tbody>';
 
 		// htmlDet += '<div id="modalHistbox" class="modalHistbox">';
-		htmlDet += '<div class="detalhes"><span class="closeModalHist" onclick="closeModalHist(i)">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
+		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(i)">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
 		htmlDet += '<div class="trajeto"><p>Trajeto</p>';
 		htmlDet += '<p>' + historico[i].startAddress + '</p>';
 		htmlDet += '<p>' + historico[i].endAddress + '</p>';
@@ -102,11 +102,11 @@ function showHist(){
 
 // Modal
 var modalHist = document.getElementById('modalHistorico');
-var btnHist = document.getElementById("mais");
-var spanHist = document.getElementsByClassName("closeModalHist")[0];
+var btnHist = document.getElementsByClassName("mais")[i];
+var spanHist = document.getElementsByClassName("fecharModalHist")[i];
 
 function showDetails(i) {
-	modalHistorico.style.display = "block";
+	document.getElementById("modalHistorico").style.display = "block";
 	document.getElementsByClassName('detalhes')[i].style.display = "inline";
 	document.getElementsByClassName('trajeto')[i].style.display = "inline-block";
 	document.getElementsByClassName('cdc')[i].style.display = "inline-block";
@@ -114,11 +114,12 @@ function showDetails(i) {
 }
 
 function closeModalHist(i) {
-	modalHistorico.style.display = "none";
+	document.getElementById("modalHistorico").style.display = "none";
+
 	// document.getElementsByClassName('detalhes')[i].style.display = "block";
-	// document.getElementsByClassName('trajeto')[i].style.display = "none";
-	// document.getElementsByClassName('cdc')[i].style.display = "none";
-	// document.getElementsByClassName('obs')[i].style.display = "none";
+	document.getElementsByClassName('trajeto')[i].style.display = "none";
+	document.getElementsByClassName('cdc')[i].style.display = "none";
+	document.getElementsByClassName('obs')[i].style.display = "none";
 }
 //
 // function hideDetails(i){

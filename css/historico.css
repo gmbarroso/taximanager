@@ -64,18 +64,20 @@ tr{
     border: 1px solid #888;
 }
 
-.closeModalHist {
+.fecharModalHist {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    z-index: 10;
 }
 
-.closeModalHist:hover,
-.closeMOdalHist:focus {
+.fecharModalHist:hover,
+.fecharModalHist:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+    z-index: 10;
 }
 
 .detalhes {
