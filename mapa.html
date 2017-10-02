@@ -30,10 +30,10 @@
       <div class="modalFavbox">
         <span class="closeModalFav" onclick="closeModalFav()">&times;</span>
         <p><b>Novo Favorito</b></p>
-        <input class="nomeFav" value="" placeholder="Nome" onkeyup="verifyName(i)">
-        <input class="localFav" value="" placeholder="Endereço" onkeyup="">
-        <button class="saveFav" type="button" name="button">Salvar</button>
-        <button class="cancelFav" type="button" name="button" onclick="closeModalHist()">Cancelar</button>
+        <input class="nomeFav" value="" placeholder="Nome" onkeyup="novoFav.name=this.value">
+        <input class="localFav" value="" placeholder="Endereço" onkeyup="verifyAutocomplete(0)">
+        <button class="saveFav" type="button" name="button" onclick="adicionarFav(1)">Salvar</button>
+        <button class="cancelFav" type="button" name="button" onclick="closeModalFav()">Cancelar</button>
       </div>
     </div>
 
@@ -96,7 +96,7 @@
         <span class="n">Nome</span>
         <span class="e">Endereço</span>
         <span>Excluir</span>
-        <button id='novoFav' type='button' onclick='adicionarFav()'>Adicionar Local</button>
+        <button id='novoFav' type='button' onclick='showModalFav()'>Adicionar Local</button>
       </div>
       <ul id="favoritos">
         <li>
