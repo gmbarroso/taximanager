@@ -25,9 +25,9 @@ function mostrarFavoritos(){
 	autocompletes = [];
 	var htmlf = "";
 
-	for (var i = 0; i < favoritos.length; i++){
+	for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++){    
 		htmlf += '<li class="listaFav"><input class="nomeFav" value="' + favoritos[i].name + '" onkeyup="verifyName(' + i + ')">';
-		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + (i+1) + ')">';
+		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + (i + 1) + ')">';
 		htmlf += '<button class="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';
 		htmlf += '</li>';
 
@@ -58,13 +58,6 @@ function lerFavoritos(){
 function adicionarFav(id){
 
 	console.log("addFav:"+id);
-	// var campo = {
-	// 	"local": novoFav.local,
-	// 	"nome": novoFav.nome,
-	// 	"lat": novoFav.lat,
-	// 	"lng": novoFav.lng,
-	// 	"place_id": novoFav.place_id
-	// };
 	api.novoFav(novoFav);
 
 	novoFav = {};
