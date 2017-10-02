@@ -10,7 +10,7 @@ function getHistorico(){
 		if (this.readyState == 4 && this.status == 200) {
 			//console.log(JSON.parse(this.responseText).records);
 			historico = JSON.parse(this.responseText).records;
-			console.log(historico);
+			// console.log(historico);
 			showHist()
 		}
 	};
@@ -48,9 +48,6 @@ function showHist(){
 		var humanReadable = {};
 		humanReadable.hours = Math.floor(hDiff);
 		humanReadable.minutes = minDiff - 60 * humanReadable.hours;
-		// console.log(humanReadable); //{hours: 0, minutes: 30}
-		// var new_number = Math.round(number).toFixed(2);
-
 
 		htmlHist += '<tr><td class="horaOrig">' + horaStart + " do dia " + dataStart +  '</td>';
 		htmlHist += '<td class="orig">' + historico[i].startAddress + '</td>';
@@ -59,6 +56,7 @@ function showHist(){
 		htmlHist += '<td class="mais" onclick="showDetails(' + i + ')">Ver detalhes</td>';
 		htmlHist += '</tr></tbody>';
 
+		// htmlDet += '<div id="modalHistorico" class="modalHist">';
 		// htmlDet += '<div id="modalHistbox" class="modalHistbox">';
 		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(i)">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
 		htmlDet += '<div class="trajeto"><p>Trajeto</p>';
@@ -74,26 +72,6 @@ function showHist(){
 		htmlDet += '<div class="obs"><p>Observações</p><textarea rows="9" cols="35" name="comment" form="usrform" placeholder="Escreva aqui suas anotações..."></textarea></div>';
 		htmlDet += '</div>';
 		// htmlDet += '</div>';
-
-
-
-
-		// html += '<div class="detalhes"><span class="histplay"><b>' + historico[i].playerService.player.name + '</b> - ' + historico[i].playerService.description + '</span>';
-		// html += '<span class="valor"><b>Valor da corrida: </b>R$ ' + historico[i].cost + '</span><br><br>';
-		// html += '<img class="ponto" src="img/yellow.png"><span class="orig"><b>Origem: </b>' + historico[i].startAddress + '</span>';
-		// html += '<span class="horaOrig"><b>Horário de saída: </b>' + horaStart + " de " + dataStart +  '</span><br><br>';
-		// html += '<img class="ponto" src="img/yellow.png"><span class="dest"><b>Destino: </b>' + historico[i].endAddress + '</span>';
-		// html += '<span class="horaDest"><b>Horário de chegada: </b>' + horaEnd + " de " + dataEnd +  '</span><br><br>';
-		// html += '<span class="dist"><b>Distância percorrida: </b>' + historico[i].distance / 100 + ' km</span>';
-		// html += '<span class="cdc"><b>Centro de custo: </b>' + historico[i].companyCostCentre.name + '</span>';
-		// html += '<span class="project"><br><br><b>Projeto: </b>' + historico[i].project + '</span>';
-		// html += '<span class="demora"><b>Duração da viagem: </b>' + (horaEnd - horaStart) + '</span>';
-		// html += '<div class="texto"><br><br><p><b>Observação:</b></p><textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Escreva aqui suas anotações..."></textarea></div>';
-		// // html += '<span class="salvoTxt">Salvo</span>';
-		//
-		// html += '<img class="detalhar" src="./img/dropdown.png" title="Mostrar Detalhes" onclick="showDetails(' + i + ')">';
-		// html += '<img class="esconder" src="./img/dropup.png" title="Esconder Detalhes" onclick="hideDetails(' + i + ')"></div>';
-		// html += '<span class="valor"><b>Valor da corrida: </b>R$ ' + historico[i].cost + '</span></div>';
 	}
 	// htmlHist+="</table>"
 	document.getElementById('historico').innerHTML = htmlHist;
@@ -107,9 +85,10 @@ var btnHist = document.getElementsByClassName("mais")[i];
 var spanHist = document.getElementsByClassName("fecharModalHist")[i];
 
 function showDetails(i) {
+	// document.getElementsByClassName("modalHistorico")[i].style.display = "block";
+	// document.getElementsByClassName("modalHistbox")[i].style.display = "block";
 	document.getElementById("modalHistorico").style.display = "block";
 	document.getElementById("modalHistbox").style.display = "block";
-
 	document.getElementsByClassName('detalhes')[i].style.display = "inline";
 	document.getElementsByClassName('trajeto')[i].style.display = "inline-block";
 	document.getElementsByClassName('cdc')[i].style.display = "inline-block";
@@ -119,6 +98,8 @@ function showDetails(i) {
 function closeModalHist(i) {
 	document.getElementById("modalHistorico").style.display = "none";
 	document.getElementById("modalHistbox").style.display = "none";
+	// document.getElementsByClassName("modalHistorico")[i].style.display = "none";
+	// document.getElementsByClassName("modalHistbox")[i].style.display = "none";
 
 	// document.getElementsByClassName('detalhes')[i].style.display = "block";
 	document.getElementsByClassName('trajeto')[i].style.display = "none";
