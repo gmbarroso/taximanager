@@ -25,7 +25,7 @@ function mostrarFavoritos(){
 	autocompletes = [];
 	var htmlf = "";
 
-	for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++){    
+	for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++){
 		htmlf += '<li class="listaFav"><input class="nomeFav" value="' + favoritos[i].name + '" onkeyup="verifyName(' + i + ')">';
 		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + (i + 1) + ')">';
 		htmlf += '<button class="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';
@@ -84,8 +84,8 @@ function verifyName(inputN){
 
 var isAutocomplete = [];
 function verifyAutocomplete(inputN){
-	console.log(inputN);
-	var input = document.getElementsByClassName('localFav')[inputN];
+	// console.log(inputN);
+	var input = document.querySelectorAll('.localFav')[inputN];
 
 	console.log(input);
 	if(input.value.length >= 4 && !isAutocomplete[inputN]){
