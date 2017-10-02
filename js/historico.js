@@ -26,7 +26,7 @@ function showHist(){
 	var htmlHist = "<tbody><tr><th>Data e Hora</th><th>Partida</th><th>Destino</th><th>Valor</th></tr>";
 	var htmlDet = "";
 
-	for (var i = 0; i < historico.length; i++){
+	for (var i = 0; i < ((IE) ? historico.length-1 : historico.length); i++){   
 
 		//formatando dia e hora de maneira legível
 		var parse1 = new Date(Date.parse(historico[i].endDate));
@@ -80,9 +80,9 @@ function showHist(){
 }
 
 // Modal
-var modalHist = document.getElementById('modalHistorico');
-var btnHist = document.getElementsByClassName("mais")[i];
-var spanHist = document.getElementsByClassName("fecharModalHist")[i];
+// var modalHist = document.getElementById('modalHistorico');
+// var btnHist = document.getElementsByClassName("mais")[i];
+// var spanHist = document.getElementsByClassName("fecharModalHist")[i];
 
 function showDetails(i) {
 	// document.getElementsByClassName("modalHistorico")[i].style.display = "block";

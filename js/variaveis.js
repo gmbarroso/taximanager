@@ -96,21 +96,23 @@ var itensCts = [
 ];
 
 var htmlCt = "<p>Centros Tecnológicos</p><img id='arrowCtec' src='./img/grey-arrow.png' onclick='openCtec()'><img id='xCtec' src='./img/x.png' onclick='closeCtec()'><ul id='listaCtec'>";
-for (var i = 0; i < itensCts.length; i++) {
+for (var i = 0; i < ((IE) ? itensCts.length-1 : itensCts.length); i++) {
+	// console.log(i);
 	htmlCt += "<li onclick='selectPoint(" + i + ", \"cts\")'>" + "<b>" + itensCts[i].name + "</b>" + " - " + itensCts[i].local + " - " + itensCts[i].bairro + "</li>";
+	// console.log(itensCts[i]);
 }
 htmlCt += "</ul>";
 
 var mapaHtml = "<p>Favoritos</p><img id='newFav' src='./img/plus.png' onclick='showModalFav()'><img id='arrowFav' src='./img/grey-arrow.png' onclick='openFav()'><img id='xFav' src='./img/x.png' onclick='closeFav()'><ul id='listaFav'>";
-for (var i = 0; i < favoritos.length; i++) {
+for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++) {
 	mapaHtml += "<li onclick='selectPoint(" + i + ", \"fav\")'>" + "<b>" + favoritos[i].name + "</b>" + " - " + favoritos[i].local + "</li>";
 }
 mapaHtml += "</ul>";
 
 // Modal
-var modal = document.getElementById('modalFavorito');
-var btn = document.getElementById("newFav");
-var span = document.getElementsByClassName("closeModalFav")[0];
+// var modal = document.getElementById('modalFavorito');
+// var btn = document.getElementById("newFav");
+// var span = document.getElementsByClassName("closeModalFav")[0];
 
 function showModalFav() {
 	modalFavorito.style.display = "block";
