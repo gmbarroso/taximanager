@@ -103,11 +103,14 @@ for (var i = 0; i < ((IE) ? itensCts.length-1 : itensCts.length); i++) {
 }
 htmlCt += "</ul>";
 
-var mapaHtml = "<p>Favoritos</p><img id='newFav' src='./img/plus.png' onclick='showModalFav()'><img id='arrowFav' src='./img/grey-arrow.png' onclick='openFav()'><img id='xFav' src='./img/x.png' onclick='closeFav()'><ul id='listaFav'>";
-for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++) {
-	mapaHtml += "<li onclick='selectPoint(" + i + ", \"fav\")'>" + "<b>" + favoritos[i].name + "</b>" + " - " + favoritos[i].local + "</li>";
+function showFavMapa(){
+	var mapaHtml = "<p>Favoritos</p><img id='newFav' src='./img/plus.png' onclick='showModalFav()'><img id='arrowFav' src='./img/grey-arrow.png' onclick='openFav()'><img id='xFav' src='./img/x.png' onclick='closeFav()'><ul id='listaFav'>";
+	for (var i = 0; i < favoritos.length; i++) {
+		mapaHtml += "<li onclick='selectPoint(" + i + ", \"fav\")'>" + "<b>" + favoritos[i].name + "</b>" + " - " + favoritos[i].local + "</li>";
+	}
+	mapaHtml += "</ul>";
+	document.getElementById('favMapa').innerHTML = mapaHtml;
 }
-mapaHtml += "</ul>";
 
 // Modal
 // var modal = document.getElementById('modalFavorito');

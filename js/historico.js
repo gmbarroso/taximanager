@@ -58,7 +58,7 @@ function showHist(){
 
 		// htmlDet += '<div id="modalHistorico" class="modalHist">';
 		// htmlDet += '<div id="modalHistbox" class="modalHistbox">';
-		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(i)">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
+		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(' + i + ')">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
 		htmlDet += '<div class="trajeto"><p>Trajeto</p>';
 		htmlDet += '<p>' + historico[i].startAddress + '</p>';
 		htmlDet += '<p>' + historico[i].endAddress + '</p>';
@@ -101,7 +101,7 @@ function closeModalHist(i) {
 	// document.getElementsByClassName("modalHistorico")[i].style.display = "none";
 	// document.getElementsByClassName("modalHistbox")[i].style.display = "none";
 
-	// document.getElementsByClassName('detalhes')[i].style.display = "block";
+	document.getElementsByClassName('detalhes')[i].style.display = "none";
 	document.getElementsByClassName('trajeto')[i].style.display = "none";
 	document.getElementsByClassName('cdc')[i].style.display = "none";
 	document.getElementsByClassName('obs')[i].style.display = "none";

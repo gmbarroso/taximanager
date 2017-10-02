@@ -42,6 +42,8 @@ function deleteFav(inputN){
 	api.deleteFav(favoritos[inputN].id);
 	favoritos.splice(inputN, 1);
 	mostrarFavoritos();
+	
+	showFavMapa();
 }
 
 function lerFavoritos(){
@@ -58,10 +60,21 @@ function lerFavoritos(){
 function adicionarFav(id){
 
 	console.log("addFav:"+id);
+	// var campo = {
+	// 	"local": novoFav.local,
+	// 	"nome": novoFav.nome,
+	// 	"lat": novoFav.lat,
+	// 	"lng": novoFav.lng,
+	// 	"place_id": novoFav.place_id
+	// };
 	api.novoFav(novoFav);
 
 	novoFav = {};
+	showFavMapa();
+
 	closeModalFav();
+	document.getElementsByClassName("nomeFav")[0].value = "";
+	document.getElementsByClassName("localFav")[0].value = "";
 }
 var novoFav = {};
 
