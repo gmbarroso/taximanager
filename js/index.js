@@ -70,19 +70,19 @@ function AutocompleteDirectionsHandler(map) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      console.log(pos);
-      console.log(pos.lat);
+      // console.log(pos);
+      // console.log(pos.lat);
 
       // Retornando Local do usuário em Str
       geocoder.geocode({'location': pos}, function(results, status) {
         if (status === 'OK') {
           if (results[1]) {
-            // infoWindow.setContent(results[1].formatted_address);
-            console.log(results[1]);
-            console.log(results[1].formatted_address);
-            console.log(results[1].address_components[3].long_name + ', ' + results[1].address_components[5].short_name );
+            infoWindow.setContent(results[1].formatted_address);
+            // console.log(results[1]);
+            // console.log(results[1].formatted_address);
+            // console.log(results[1].address_components[1].long_name + ', ' + results[1].address_components[3].short_name );
             // infoWindow.open(map, marker);
-            document.getElementById('localizacaoUser').innerHTML = '<span>' + results[1].address_components[3].long_name + ', ' + results[1].address_components[5].short_name  + '</span>';
+            document.getElementById('localizacaoUser').innerHTML = '<span>' + results[1].address_components[0].long_name + ', ' + results[1].address_components[1].long_name + ' - ' +  results[1].address_components[3].short_name  + '</span>';
           } else {
             window.alert('No results found');
           }
