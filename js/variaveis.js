@@ -101,7 +101,7 @@ for (var i = 0; i < itensCts.length; i++) {
 }
 htmlCt += "</ul>";
 
-var mapaHtml = "<p>Favoritos</p><img id='newFav' src='./img/plus.png' onclick='adicionarFav()'><img id='arrowFav' src='./img/grey-arrow.png' onclick='openFav()'><img id='xFav' src='./img/x.png' onclick='closeFav()'><ul id='listaFav'>";
+var mapaHtml = "<p>Favoritos</p><img id='newFav' src='./img/plus.png' onclick='showModalFav()'><img id='arrowFav' src='./img/grey-arrow.png' onclick='openFav()'><img id='xFav' src='./img/x.png' onclick='closeFav()'><ul id='listaFav'>";
 for (var i = 0; i < favoritos.length; i++) {
 	mapaHtml += "<li onclick='selectPoint(" + i + ", \"fav\")'>" + "<b>" + favoritos[i].name + "</b>" + " - " + favoritos[i].local + "</li>";
 }
@@ -112,7 +112,7 @@ var modal = document.getElementById('modalFavorito');
 var btn = document.getElementById("newFav");
 var span = document.getElementsByClassName("closeModalFav")[0];
 
-function adicionarFav() {
+function showModalFav() {
 	modalFavorito.style.display = "block";
 }
 
