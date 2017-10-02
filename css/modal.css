@@ -63,6 +63,7 @@
   width: 900px;
   height: auto;
   z-index: 10;
+  display: none;
 }
 
 .trajeto {

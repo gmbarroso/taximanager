@@ -49,6 +49,7 @@ function showHist(){
 		humanReadable.hours = Math.floor(hDiff);
 		humanReadable.minutes = minDiff - 60 * humanReadable.hours;
 		// console.log(humanReadable); //{hours: 0, minutes: 30}
+		// var new_number = Math.round(number).toFixed(2);
 
 
 		htmlHist += '<tr><td class="horaOrig">' + horaStart + " do dia " + dataStart +  '</td>';
@@ -64,7 +65,7 @@ function showHist(){
 		htmlDet += '<p>' + historico[i].startAddress + '</p>';
 		htmlDet += '<p>' + historico[i].endAddress + '</p>';
 		htmlDet += '<div class="dddspan"><span>Distância</span></div><div class="dddspan"><span>Duração</span></div><div class="dddspan"><span class="dddspan">Valor</span></div>';
-		htmlDet += '<div class="ddd"><span>' + historico[i].distance + ' km</span></div><div class="ddd"><span>' + humanReadable.minutes + ' min</span></div><div class="ddd"><span>R$ ' + historico[i].cost + '</span></div>';
+		htmlDet += '<div class="ddd"><span>' + historico[i].distance + ' km</span></div><div class="ddd"><span>' + Math.round(humanReadable.minutes).toFixed(0) + ' min</span></div><div class="ddd"><span>R$ ' + historico[i].cost + '</span></div>';
 		htmlDet += '<div class="fcspan"><span>Fornecedor</span></div><div class="fcspan"><span>Categoria</span></div><br>';
 		htmlDet += '<div class="fc"><span>' + historico[i].playerService.player.name + '</span></div><div class="fc"><span>' + historico[i].playerService.description + '</span></div></div>';
 		htmlDet += '<div class="cdc"><p>Centro de Custo</p><input class="" value="' + historico[i].companyCostCentre.name + '" placeholder="" readonly>';
@@ -107,6 +108,8 @@ var spanHist = document.getElementsByClassName("fecharModalHist")[i];
 
 function showDetails(i) {
 	document.getElementById("modalHistorico").style.display = "block";
+	document.getElementById("modalHistbox").style.display = "block";
+
 	document.getElementsByClassName('detalhes')[i].style.display = "inline";
 	document.getElementsByClassName('trajeto')[i].style.display = "inline-block";
 	document.getElementsByClassName('cdc')[i].style.display = "inline-block";
@@ -115,6 +118,8 @@ function showDetails(i) {
 
 function closeModalHist(i) {
 	document.getElementById("modalHistorico").style.display = "none";
+	document.getElementById("modalHistbox").style.display = "none";
+
 	// document.getElementsByClassName('detalhes')[i].style.display = "block";
 	document.getElementsByClassName('trajeto')[i].style.display = "none";
 	document.getElementsByClassName('cdc')[i].style.display = "none";
