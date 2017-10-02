@@ -621,7 +621,7 @@ window.onload = function(){
   document.getElementById('datntim').innerHTML = (diaSemana + ', ' + dia + '/' + mesCorreto + '/' + ano);
   //puxando arrays de outro script e escrevendo no html
   document.getElementById("cTec").innerHTML = htmlCt;
-  document.getElementById('favMapa').innerHTML = mapaHtml;
+  showFavMapa();
   // document.getElementById('favoritos').innerHTML = htmlf;
   // document.getElementById('historico').innerHTML = htmlHist;
   getHistorico();
