@@ -23,10 +23,10 @@ function getHistorico(){
 
 
 function showHist(){
-	var htmlHist = "<tbody><tr><th>Data e Hora</th><th>Partida</th><th>Destino</th><th>Valor</th></tr>";
+	var htmlHist = "<table><tbody><tr><th>Data e Hora</th><th>Partida</th><th>Destino</th><th>Valor</th></tr>";
 	var htmlDet = "";
 
-	for (var i = 0; i < ((IE) ? historico.length-1 : historico.length); i++){   
+	for (var i = 0; i < ((IE) ? historico.length : historico.length); i++){
 
 		//formatando dia e hora de maneira legível
 		var parse1 = new Date(Date.parse(historico[i].endDate));
@@ -73,10 +73,10 @@ function showHist(){
 		htmlDet += '</div>';
 		// htmlDet += '</div>';
 	}
-	// htmlHist+="</table>"
+	htmlHist+="</table>";
+	console.log(htmlHist);
 	document.getElementById('historico').innerHTML = htmlHist;
 	document.getElementById('modalHistbox').innerHTML = htmlDet;
-	// console.log(Math.abs(horaEnd - horaStart));
 }
 
 // Modal
@@ -85,48 +85,19 @@ function showHist(){
 // var spanHist = document.getElementsByClassName("fecharModalHist")[i];
 
 function showDetails(i) {
-	// document.getElementsByClassName("modalHistorico")[i].style.display = "block";
-	// document.getElementsByClassName("modalHistbox")[i].style.display = "block";
 	document.getElementById("modalHistorico").style.display = "block";
 	document.getElementById("modalHistbox").style.display = "block";
-	document.getElementsByClassName('detalhes')[i].style.display = "inline";
-	document.getElementsByClassName('trajeto')[i].style.display = "inline-block";
-	document.getElementsByClassName('cdc')[i].style.display = "inline-block";
-	document.getElementsByClassName('obs')[i].style.display = "inline-block";
+	document.querySelectorAll('.detalhes')[i].style.display = "inline";
+	document.querySelectorAll('.trajeto')[i].style.display = "inline-block";
+	document.querySelectorAll('.cdc')[i].style.display = "inline-block";
+	document.querySelectorAll('.obs')[i].style.display = "inline-block";
 }
 
 function closeModalHist(i) {
 	document.getElementById("modalHistorico").style.display = "none";
 	document.getElementById("modalHistbox").style.display = "none";
-	// document.getElementsByClassName("modalHistorico")[i].style.display = "none";
-	// document.getElementsByClassName("modalHistbox")[i].style.display = "none";
-
-	document.getElementsByClassName('detalhes')[i].style.display = "none";
-	document.getElementsByClassName('trajeto')[i].style.display = "none";
-	document.getElementsByClassName('cdc')[i].style.display = "none";
-	document.getElementsByClassName('obs')[i].style.display = "none";
+	document.querySelectorAll('.detalhes')[i].style.display = "none";
+	document.querySelectorAll('.trajeto')[i].style.display = "none";
+	document.querySelectorAll('.cdc')[i].style.display = "none";
+	document.querySelectorAll('.obs')[i].style.display = "none";
 }
-//
-// function hideDetails(i){
-// 	document.getElementsByClassName('detalhar')[i].style.display = "block";
-// 	document.getElementsByClassName('esconder')[i].style.display = "none";
-// 	document.getElementsByClassName('dist')[i].style.display = "none";
-// 	document.getElementsByClassName('cdc')[i].style.display = "none";
-// 	document.getElementsByClassName('project')[i].style.display = "none";
-// 	document.getElementsByClassName('demora')[i].style.display = "none";
-// 	document.getElementsByClassName('texto')[i].style.display = "none";
-//
-// }
-//
-// function openNavHist() {
-// 	document.getElementById("sidemenu").style.width = "250px";
-// 	document.getElementById("taxi").style.marginLeft = "250px";
-// 	document.getElementById("perfil").style.marginLeft = "150px";
-// 	document.getElementById("boxHist").style.marginRight = "270px";
-// }
-// function closeNavHist() {
-// 	document.getElementById("sidemenu").style.width = "0";
-// 	document.getElementById("taxi").style.marginLeft = "50px";
-// 	document.getElementById("perfil").style.marginLeft = "0px";
-// 	document.getElementById("boxHist").style.marginLeft = "100px";
-// }

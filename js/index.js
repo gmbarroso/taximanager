@@ -264,7 +264,7 @@ function verifyAutocomplete(id){
       isAutocomplete[inputN] = false;
       console.log("<4");
 
-      var contArray = document.getElementsByClassName('pac-container');
+      var contArray = document.querySelectorAll('.pac-container');
       for (var i = 0; i < contArray.length; i++) {
         contArray[i].style.display = "none";
       }

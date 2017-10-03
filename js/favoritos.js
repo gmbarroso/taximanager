@@ -26,8 +26,9 @@ function mostrarFavoritos(){
 	var htmlf = "";
 
 	for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++){
-		htmlf += '<li class="listaFav"><input class="nomeFav" value="' + favoritos[i].name + '" onkeyup="verifyName(' + i + ')">';
-		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocomplete(' + (i + 1) + ')">';
+		console.log(favoritos[i]);
+		htmlf += '<li class="listaFav"><input class="nomeFav" value="' + favoritos[i].name + '"onkeyup="verifyName(' + i + ')">';
+		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocompleteFav(' + (i + 1) + ')">';
 		htmlf += '<button class="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';
 		htmlf += '</li>';
 
@@ -42,14 +43,14 @@ function deleteFav(inputN){
 	api.deleteFav(favoritos[inputN].id);
 	favoritos.splice(inputN, 1);
 	mostrarFavoritos();
-	
+
 	showFavMapa();
 }
 
 function lerFavoritos(){
 
-	var nomes = document.getElementsByClassName('nomeFav');
-	var locais = document.getElementsByClassName('localFav');
+	var nomes = document.querySelectorAll('.nomeFav');
+	var locais = document.querySelectorAll('.localFav');
 
 	for (var i = 0; i < nomes.length; i++) {
 		favoritos[i].nome = nomes[i].value;
@@ -60,21 +61,14 @@ function lerFavoritos(){
 function adicionarFav(id){
 
 	console.log("addFav:"+id);
-	// var campo = {
-	// 	"local": novoFav.local,
-	// 	"nome": novoFav.nome,
-	// 	"lat": novoFav.lat,
-	// 	"lng": novoFav.lng,
-	// 	"place_id": novoFav.place_id
-	// };
 	api.novoFav(novoFav);
 
 	novoFav = {};
 	showFavMapa();
 
 	closeModalFav();
-	document.getElementsByClassName("nomeFav")[0].value = "";
-	document.getElementsByClassName("localFav")[0].value = "";
+	document.querySelectorAll(".nomeFav")[0].value = "";
+	document.querySelectorAll(".localFav")[0].value = "";
 }
 var novoFav = {};
 
@@ -88,19 +82,19 @@ function verifyName(inputN){
 	timeouts[inputN] = setTimeout(function() {
 		lerFavoritos();
 		api.atualizaFav(favoritos[inputN]);
-		document.getElementsByClassName('salvo-span')[inputN].style.opacity = 1;
+		document.querySelectorAll('.salvo-span')[inputN].style.opacity = 1;
 		setTimeout(function(){
-			document.getElementsByClassName('salvo-span')[inputN].style.opacity = 0;
+			document.querySelectorAll('.salvo-span')[inputN].style.opacity = 0;
 		}, 2000);
 	}, 2000);
 }
 
 var isAutocomplete = [];
-function verifyAutocomplete(inputN){
+function verifyAutocompleteFav(inputN){
 	// console.log(inputN);
 	var input = document.querySelectorAll('.localFav')[inputN];
 
-	console.log(input);
+	console.log(inputN);
 	if(input.value.length >= 4 && !isAutocomplete[inputN]){
 		isAutocomplete[inputN] = true;
 		autocompletes[inputN] = new google.maps.places.Autocomplete((input), {types: ['geocode']});
@@ -112,7 +106,7 @@ function verifyAutocomplete(inputN){
 		isAutocomplete[inputN] = false;
 		console.log(input.value);
 
-		var contArray = document.getElementsByClassName('pac-container');
+		var contArray = document.querySelectorAll('.pac-container');
 		for (var i = 0; i < contArray.length; i++) {
 			contArray[i].style.display = "none";
 		}
