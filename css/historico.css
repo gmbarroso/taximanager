@@ -84,6 +84,16 @@ tr{
   display: none;
 }
 
+small {
+  margin-left: 100px;
+  font-size: 12px;
+}
+
+.detalhes img {
+  width: 25px;
+  display: inline;
+}
+
 .detalhamentos {
   font-size: 20px;
 }

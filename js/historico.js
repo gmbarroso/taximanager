@@ -56,11 +56,14 @@ function showHist(){
 		htmlHist += '<td class="mais" onclick="showDetails(' + i + ')">Ver detalhes</td>';
 		htmlHist += '</tr></tbody>';
 
-		// htmlDet += '<div id="modalHistorico" class="modalHist">';
-		// htmlDet += '<div id="modalHistbox" class="modalHistbox">';
-		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(' + i + ')">&times;</span><p class="detalhamentos"><b>Detalhamentos</b></p>';
+		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(' + i + ')">&times;</span><p class="detalhamentos"><b>Detalhamentos</b><small>' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</small></p>';
+		// htmlDet += '<span class="spanteste">' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</span>';
+
+
 		htmlDet += '<div class="trajeto"><p>Trajeto</p>';
+		// htmlDet += '<img src="./img/doc-gray-circle.png"> <p>' + historico[i].startAddress + '</p>';
 		htmlDet += '<p>' + historico[i].startAddress + '</p>';
+		// htmlDet += '<img src="./img/circle-outline.png"><p>' + historico[i].endAddress + '</p>';
 		htmlDet += '<p>' + historico[i].endAddress + '</p>';
 		htmlDet += '<div class="dddspan"><span>Distância</span></div><div class="dddspan"><span>Duração</span></div><div class="dddspan"><span class="dddspan">Valor</span></div>';
 		htmlDet += '<div class="ddd"><span>' + historico[i].distance + ' km</span></div><div class="ddd"><span>' + Math.round(humanReadable.minutes).toFixed(0) + ' min</span></div><div class="ddd"><span>R$ ' + historico[i].cost + '</span></div>';
@@ -71,10 +74,8 @@ function showHist(){
 		htmlDet += '<p>Justificativa</p><span><input class="" value="" placeholder=""></span></div>';
 		htmlDet += '<div class="obs"><p>Observações</p><textarea rows="9" cols="35" name="comment" form="usrform" placeholder="Escreva aqui suas anotações..."></textarea></div>';
 		htmlDet += '</div>';
-		// htmlDet += '</div>';
 	}
 	htmlHist+="</table>";
-	console.log(htmlHist);
 	document.getElementById('historico').innerHTML = htmlHist;
 	document.getElementById('modalHistbox').innerHTML = htmlDet;
 }

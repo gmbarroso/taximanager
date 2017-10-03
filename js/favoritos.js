@@ -26,7 +26,7 @@ function mostrarFavoritos(){
 	var htmlf = "";
 
 	for (var i = 0; i < ((IE) ? favoritos.length-1 : favoritos.length); i++){
-		console.log(favoritos[i]);
+		// console.log(favoritos[i]);
 		htmlf += '<li class="listaFav"><input class="nomeFav" value="' + favoritos[i].name + '"onkeyup="verifyName(' + i + ')">';
 		htmlf += '<input class="localFav" size="50" value="' + favoritos[i].local + '" onkeyup="verifyAutocompleteFav(' + (i + 1) + ')">';
 		htmlf += '<button class="deletar" onclick="deleteFav(' + i + ')">Deletar</button>';

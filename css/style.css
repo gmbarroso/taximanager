@@ -301,7 +301,7 @@ transform: rotate(45deg) translate(-4px, -4px) ;
 }
 
 #box{
-  width: 430px;
+  width: 424px;
   margin: 20px;
   margin-top: 70px;
   position: absolute;
@@ -314,7 +314,7 @@ transform: rotate(45deg) translate(-4px, -4px) ;
   padding: 20px;
   /*transition: height 5s;*/
   height: 460px;;
-  overflow-y: auto;
+  overflow-y:scroll;
 }
 
 #go {
@@ -584,7 +584,7 @@ transform: rotate(45deg) translate(-4px, -4px) ;
 
 /* IE8 */
 #autocomplete-o, #autocomplete-d {
-  border: 1px solid #BBBBBB;
+  /*border: 1px solid #BBBBBB;*/
   border-image: none;
   background-color: #FFFFFF;
   position: absolute;

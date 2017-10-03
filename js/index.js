@@ -55,7 +55,12 @@ function initMap() {
 
   ADH = new AutocompleteDirectionsHandler(map);
 }
-
+/**
+* Represents um mapa.
+ * @constructor
+ * @param {google.map} map - O que ele faz???.
+ * @return {array} - Retorna uma lista de enderecos que foram completados
+*/
 function AutocompleteDirectionsHandler(map) {
 
   //IE8 retornando opções de endereços
@@ -129,8 +134,20 @@ function AutocompleteDirectionsHandler(map) {
   this.directionsDisplay = new google.maps.DirectionsRenderer;
   this.directionsDisplay.setMap(map);
 
+  var options = {
+    types: ['geocode']
+  };
+
   originAutocomplete = new google.maps.places.Autocomplete(originInput, {placeIdOnly: false});
   destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, {placeIdOnly: false});
+
+  // Tentando restringir a busca para Brasil somente
+  // originAutocomplete.setComponentRestrictions(
+  //   {'country': ['us']}
+  // );
+  // destinationAutocomplete.setComponentRestrictions(
+  //   {'country': ['us']}
+  // );
 
   this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
@@ -207,18 +224,25 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
       destinosRec.push(destinoendereco);
 
       localStorage.setItem("lastDest", JSON.stringify(destinosRec));
-      mostrarLocalStorage();
+      if (localStorage.lastDest == []) {
+        document.getElementById('cacheBox').style.display = 'none';
+      } else {
+        mostrarLocalStorage();
+      }
+
     }
   });
 };
 
+
+
 function mostrarLocalStorage(){
-  var novos = "<p>Buscas recentes</p><img id='arrowCache' src='./img/grey-arrow.png' onclick='openCache()'><img id='xCache' src='./img/x.png' onclick='closeCache()'><ul id='listaCache'>";
+  var novos = "<div id='cache'><p>Buscas recentes</p><img id='arrowCache' src='./img/grey-arrow.png' onclick='openCache()'><img id='xCache' src='./img/x.png' onclick='closeCache()'><ul id='listaCache'>";
   for (var i = 0; i < destinosRec.length; i++) {
     novos += "<li onclick='selectPoint(" + i + ", \"cac\")'>" + "<b>" + destinosRec[i].name + "</b>" + " - " +  destinosRec[i].address + "</li>";
   }
-  novos += "</ul>";
-  document.getElementById('cache').innerHTML = novos;
+  novos += "</ul></div>";
+  document.getElementById('cacheBox').innerHTML = novos;
 }
 AutocompleteDirectionsHandler.prototype.route = function() {
   if (!this.originPlaceId || !this.destinationPlaceId) {
