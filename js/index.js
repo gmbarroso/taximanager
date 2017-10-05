@@ -237,7 +237,7 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
 
 
 function mostrarLocalStorage(){
-  var novos = "<div id='cache'><p>Buscas recentes</p><img id='arrowCache' src='./img/grey-arrow.png' onclick='openCache()'><img id='xCache' src='./img/x.png' onclick='closeCache()'><ul id='listaCache'>";
+  var novos = "<div id='cache'><p>Buscas recentes</p><img id='arrowCache' src='../img/grey-arrow.png' onclick='openCache()'><img id='xCache' src='../img/x.png' onclick='closeCache()'><ul id='listaCache'>";
   for (var i = 0; i < destinosRec.length; i++) {
     novos += "<li onclick='selectPoint(" + i + ", \"cac\")'>" + "<b>" + destinosRec[i].name + "</b>" + " - " +  destinosRec[i].address + "</li>";
   }
@@ -259,6 +259,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       me.directionsDisplay.setDirections(response);
 
       directions.distance = Math.round(response.routes[0].legs[0].distance.value / 1000);
+      // directions.distance = (response.routes[0].legs[0].distance.value).substring(0, 2)
       directions.duration = Math.round(response.routes[0].legs[0].duration.value / 60);
 
       getOpcoes(directions);
@@ -461,6 +462,8 @@ function menuHist(){
   document.getElementById("subheader").style.display = "none";
   document.getElementById("politica").style.marginTop = "100%";
   document.getElementById("menuHistorico").style.display = "inline";
+  document.getElementById("header").style.overflowY = "auto";
+
 
 }
 
@@ -469,6 +472,8 @@ function closeMenuHist(){
   document.getElementById("subheader").style.display = "inline";
   document.getElementById("politica").style.marginTop = "380px";
   document.getElementById("menuHistorico").style.display = "none";
+  document.getElementById("header").style.overflowY = "none";
+
 
 }
 
@@ -477,6 +482,7 @@ function menuFav(){
   document.getElementById("subheader").style.display = "none";
   document.getElementById("politica").style.marginTop = "100%";
   document.getElementById("menuFavorito").style.display = "inline";
+  document.getElementById("header").style.overflowY = "auto";
 
 }
 
@@ -485,6 +491,7 @@ function closeMenuFav(){
   document.getElementById("subheader").style.display = "inline";
   document.getElementById("politica").style.marginTop = "380px";
   document.getElementById("menuFavorito").style.display = "none";
+  document.getElementById("header").style.overflowY = "none";
 
 }
 
@@ -502,6 +509,8 @@ function closeNav() {
   document.getElementById("menuHistorico").style.display = "none";
   document.getElementById("menuFavorito").style.display = "none";
   document.getElementById("politica").style.marginTop = "380px";
+  document.getElementById("header").style.overflowY = "none";
+
 
 }
 
@@ -688,29 +697,18 @@ function getOpcoes(data){
 
 }
 
-
-
-
-
 function mostrarOpcoes(records){
-  // ordenar por prestadores
-  // records.sort(function(a, b){
-  //   var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
-  //   if (nameA > nameB) return -1;
-  //   if (nameA < nameB) return 1;
-  //   return 0;
-  // });
 
-  console.log(records);
+  // console.log(records.modality.name);
 
-  var html = '<ul class="listaPrecos"><li><img src="img/' + records[0].modality.name.substring(0, 2) + '.png"/>';
+  var html = '<ul class="listaPrecos"><li><img src="../img/' + records[0].modality.name.substring(0, 2) + '.png"/>';
 
   for (var i = 0; i < records.length; i++) {
     html += "<div class='spacetipo'><span>" + records[i].modality.name + "</span></div><span class='spaceprice'>" + records[i].price + "</span><span>" + (records[i].waiting_time / 60) + " min</span>";
     html += "<div class='a'><a href=''>IR</a></div>"
 
     if (records[i+1] && records[i].modality.name != records[i+1].modality.name){
-      html += '<li><img src="img/' + records[i+1].modality.name.substring(0, 2) + '.png"/>';
+      html += '<li><img src="../img/' + records[i+1].modality.name.substring(0, 2) + '.png"/>';
 
       // if (records[i].modality.name == "99 TÁXI 30% off") {
       //   html += "<span>30% off</span><span>" + records[i].price + "</span><span>" + (records[i].waiting_time / 60) + " min</span>";

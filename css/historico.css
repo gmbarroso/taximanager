@@ -1,6 +1,7 @@
 #historico table {
   margin-top: 20px;
   font-size: 12px;
+  /*overflow-y: auto;*/
 }
 
 
@@ -82,16 +83,19 @@ tr{
 
 .detalhes {
   display: none;
+  font-size: 12px;
 }
 
 small {
   margin-left: 100px;
-  font-size: 12px;
+  font-size: 11px;
 }
 
-.detalhes img {
-  width: 25px;
+.detImg {
+  vertical-align: middle;
+  width: 20px;
   display: inline;
+  margin-right: 5px;
 }
 
 .detalhamentos {

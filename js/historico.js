@@ -1,8 +1,8 @@
 var historico;
 
 function getHistorico(){
-	var url = "http://api.taximanager.com.br/v1/taximanager/companies/1/travels?limit=50&employeeId=147";
-	// var url = "http://api.taximanager.com.br/v1/taximanager/companies/1/travels?limit=50&";
+	// var url = "http://api.taximanager.com.br/v1/taximanager/companies/1/travels?limit=50&employeeId=147";
+	var url = "http://api.taximanager.com.br/v1/taximanager/companies/1/travels?limit=50&";
 
 	var http = new XMLHttpRequest();
 
@@ -10,7 +10,7 @@ function getHistorico(){
 		if (this.readyState == 4 && this.status == 200) {
 			//console.log(JSON.parse(this.responseText).records);
 			historico = JSON.parse(this.responseText).records;
-			// console.log(historico);
+			console.log(historico);
 			showHist()
 		}
 	};
@@ -56,15 +56,15 @@ function showHist(){
 		htmlHist += '<td class="mais" onclick="showDetails(' + i + ')">Ver detalhes</td>';
 		htmlHist += '</tr></tbody>';
 
-		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(' + i + ')">&times;</span><p class="detalhamentos"><b>Detalhamentos</b><small>' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</small></p>';
+		htmlDet += '<div class="detalhes"><span class="fecharModalHist" onclick="closeModalHist(' + i + ')">&times;</span><p class="detalhamentos">';
+		htmlDet += '<b>Detalhamentos</b><small><img class="detImg" src="../img/' + historico[i].playerService.player.name.substring(0, 2) + '.png"/>' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</small></p>';
+		// htmlDet += '<b>Detalhamentos</b><small>' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</small></p>';
 		// htmlDet += '<span class="spanteste">' + dataStart + ' às ' + horaStart + ' - R$' + historico[i].cost + '</span>';
-
-
 		htmlDet += '<div class="trajeto"><p>Trajeto</p>';
-		// htmlDet += '<img src="./img/doc-gray-circle.png"> <p>' + historico[i].startAddress + '</p>';
-		htmlDet += '<p>' + historico[i].startAddress + '</p>';
-		// htmlDet += '<img src="./img/circle-outline.png"><p>' + historico[i].endAddress + '</p>';
-		htmlDet += '<p>' + historico[i].endAddress + '</p>';
+		htmlDet += '<p><img src="../img/grey.png">' + historico[i].startAddress + '</p>';
+		// htmlDet += '<p>' + historico[i].startAddress + '</p>';
+		htmlDet += '<p><img src="../img/greyoutline.png">' + historico[i].endAddress + '</p>';
+		// htmlDet += '<p>' + historico[i].endAddress + '</p>';
 		htmlDet += '<div class="dddspan"><span>Distância</span></div><div class="dddspan"><span>Duração</span></div><div class="dddspan"><span class="dddspan">Valor</span></div>';
 		htmlDet += '<div class="ddd"><span>' + historico[i].distance + ' km</span></div><div class="ddd"><span>' + Math.round(humanReadable.minutes).toFixed(0) + ' min</span></div><div class="ddd"><span>R$ ' + historico[i].cost + '</span></div>';
 		htmlDet += '<div class="fcspan"><span>Fornecedor</span></div><div class="fcspan"><span>Categoria</span></div><br>';

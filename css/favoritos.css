@@ -50,7 +50,7 @@
 #novoFav {
   float: right;
   background-color: white;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   border-color: #bbb;
   border-width: 1px;
   color: #bbb;
@@ -62,7 +62,7 @@
   cursor: pointer;
   float: right;
   background-color: #bbb;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   border-color: #bbb;
   border-width: 1px;
   color: white;
@@ -71,7 +71,7 @@
 }
 
 .deletar {
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   background-color: white;
   border-color: #bbb;
   border-width: 1px;
@@ -80,7 +80,7 @@
 
 .deletar:hover {
   cursor: pointer;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   background-color: #bbb;
   border-color: #bbb;
   border-width: 1px;
