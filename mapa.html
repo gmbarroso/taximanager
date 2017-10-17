@@ -7,13 +7,13 @@
   <meta charset="utf-8">
   <link href="./css/sidemenu.css" rel="stylesheet">
   <link href="./css/players.css" rel="stylesheet">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaMueYa5V3V-KwlbAfqd5EfTh52fpybeE&libraries=places&callback=initMap" async defer></script>
   <!--<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">-->
   <link href="./css/style.css" rel="stylesheet">
   <script src="./js/index.js"></script>
+  <script src="./js/variaveis.js"></script>
   <script src="./js/historico.js"></script>
   <script src="./js/favoritos.js"></script>
-  <script src="./js/variaveis.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoViFoLS2catNnjAB4SyWSh4_niA69D34&libraries=places&callback=initMap" async defer></script>
   <link href="./css/historico.css" rel="stylesheet">
   <link href="./css/favoritos.css" rel="stylesheet">
   <link href="./css/modal.css" rel="stylesheet">
@@ -50,12 +50,12 @@
         <div class="bar2"></div>
         <div class="bar3"></div>
       </div>
-      <img id="exi" src="img/x.png" alt="" onclick="closeNav()">
+      <img id="exi" src="./img/x.png" alt="" onclick="closeNav()">
       <div id="texto">
         <a href="#" class="duvidas">Dúvidas Frequentes</a>
         <a href="index.html" class="logout">Logout</a>
       </div>
-      <img id="taxi" src="img/Logo_TaxiManager.png" alt="">
+      <img id="taxi" src="./img/Logo_TaxiManager.png" alt="">
     </div>
 
     <div id="subheader">
@@ -71,7 +71,7 @@
         <p onclick="menuFav()">Favoritos</p>
       </div>
       <footer id="politica">
-        <img id="userLocal" src="img/location.png" onclick="centralizar()">
+        <img id="userLocal" src="./img/location.png" onclick="centralizar()">
         <div id="localizacaoUser">
           <!-- <span>São Paulo - Brasil</span> -->
 
@@ -83,7 +83,7 @@
     <!-- Menu Historico -->
     <div id="menuHistorico">
       <h1>Meu Histórico</h1>
-      <img id="exiHist" src="img/x.png" alt="" onclick="closeMenuHist()">
+      <img id="exiHist" src="./img/x.png" alt="" onclick="closeMenuHist()">
       <div id="historico">
       </div>
     </div>
@@ -91,7 +91,7 @@
     <!-- Menu Favoritos -->
     <div id="menuFavorito">
       <h1>Meus Favoritos</h1>
-      <img id="exiFav" src="img/x.png" alt="" onclick="closeMenuFav()">
+      <img id="exiFav" src="./img/x.png" alt="" onclick="closeMenuFav()">
       <div id='cabecalho'>
         <span class="n">Nome</span>
         <span class="e">Endereço</span>
@@ -117,7 +117,7 @@
       <p id="datntim"></p>
       <div id="go">
         <img id="invert" src="./img/connection.png" alt="" onclick="inverter()">
-        <img src="img/arrow.png" id="calcular" onclick="showPlayers()">
+        <img src="./img/arrow.png" id="calcular" onclick="showPlayers()">
       </div>
       <div id="inputs">
         <input id="origin-input" class="controls" type="text" placeholder="Local de origem" style="border-bottom: 1px solid #BBB" onkeyup="verifyAutocomplete('origin-input')">

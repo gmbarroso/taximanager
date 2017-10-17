@@ -1,0 +1,41 @@
+{
+    "project": {},
+    "files": {
+        "index.js": {
+            "name": "index.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {},
+    "elements": {},
+    "classitems": [
+        {
+            "file": "index.js",
+            "line": 58,
+            "description": "Represents um mapa.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "map",
+                    "description": "- O que ele faz???.",
+                    "type": "google.map"
+                }
+            ],
+            "return": {
+                "description": "- Retorna uma lista de enderecos que foram completados",
+                "type": "Array"
+            },
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nRepresents um mapa.",
+            "line": " index.js:58"
+        }
+    ]
+}

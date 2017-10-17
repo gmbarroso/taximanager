@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi Manager</title>
+  <link rel="stylesheet" href="./css/login.css">
+  <!-- <link href="./css/style.css" rel="stylesheet"> -->
+  <script type="text/javascript" src="./js/login.js"></script>
+</head>
+
+<body>
+  <div id="loginBody">
+    <div class="container">
+      <img id="imagem" src="img/TaxiManager_horizontal.png" alt="">
+      <form id="formLgn" role="form" name="myForm" action="mapa.html" onsubmit="return validateForm()" >
+        <div class="form-group">
+          <input type="email" class="form-control" size="30" name="User" placeholder="Usuário" id="fname"><br>
+          <input type="password" minlength="8" class="form-control" size="30" placeholder="Senha" name="id" id="fpass">
+        </div>
+        <input id="login" type="submit" class="" value="Login">
+      </form>
+    </div>
+    <br>
+    <a id="forget" href="#">Esqueci a senha</a>
+  </div>
+</body>
+</html>

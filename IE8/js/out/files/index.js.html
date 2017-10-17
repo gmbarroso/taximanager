@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>index.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="./assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="./assets/css/main.css" id="site_styles">
+    <link rel="icon" href="./assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="./assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: index.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var API_URL = &quot;http://myfirstelasticbeanstalkapplication.g2xtaf7nbz.us-east-1.elasticbeanstalk.com/v1/estimates&quot;;
+var ADH; // Instância de AutocompleteDirectionsHandler
+
+
+
+//verificando se o browser é o IE8
+function checkIE() {
+  var ua = window.navigator.userAgent;
+  var msie = ua.indexOf(&#x27;MSIE &#x27;);
+  if (msie &gt; 0) {
+    // IE 10 or older =&gt; return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf(&#x27;.&#x27;, msie)), 10);
+  }
+}
+var IE = checkIE() &gt; 0;
+
+var destinosRec = [];
+if(!IE &amp;&amp; localStorage.lastDest!=undefined) destinosRec = JSON.parse(localStorage.lastDest);
+
+
+function initMap() {
+
+  if(IE) return;
+  // Definindo configurações do meu mapa
+  var mapOptions = {
+    mapTypeControl: false,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeId.ROADMAP,
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    fullscreenControl: false,
+    fullscreenControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    zoomControl: true,
+    zoomControlOptions:{
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    streetViewControl: true,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    center: {lat: -23.5456, lng: -46.6282},
+    zoom: 13
+  };
+
+  var map = new google.maps.Map(document.getElementById(&#x27;map&#x27;), mapOptions);
+
+  // ponto do usuário sempre centralizado ao mudar o tamanho da tela
+  google.maps.event.addDomListener(window, &quot;resize&quot;, function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, &quot;resize&quot;);
+    map.setCenter(center);
+  });
+
+  ADH = new AutocompleteDirectionsHandler(map);
+}
+/**
+* Represents um mapa.
+ * @constructor
+ * @param {google.map} map - O que ele faz???.
+ * @return {array} - Retorna uma lista de enderecos que foram completados
+*/
+function AutocompleteDirectionsHandler(map) {
+
+  //IE8 retornando opções de endereços
+  if(IE) return;
+  // Pedindo permissão ao usuário - Geolocation
+  var geocoder = new google.maps.Geocoder;
+
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      // console.log(pos);
+      // console.log(pos.lat);
+
+      // Retornando Local do usuário em Str
+      geocoder.geocode({&#x27;location&#x27;: pos}, function(results, status) {
+        if (status === &#x27;OK&#x27;) {
+          if (results[1]) {
+            infoWindow.setContent(results[1].formatted_address);
+            // console.log(results[1]);
+            // console.log(results[1].formatted_address);
+            // console.log(results[1].address_components[1].long_name + &#x27;, &#x27; + results[1].address_components[3].short_name );
+            // infoWindow.open(map, marker);
+            document.getElementById(&#x27;localizacaoUser&#x27;).innerHTML = &#x27;&lt;span&gt;&#x27; + results[1].address_components[0].long_name + &#x27;, &#x27; + results[1].address_components[1].long_name + &#x27; - &#x27; +  results[1].address_components[3].short_name  + &#x27;&lt;/span&gt;&#x27;;
+          } else {
+            window.alert(&#x27;No results found&#x27;);
+          }
+        } else {
+          window.alert(&#x27;Geocoder failed due to: &#x27; + status);
+        }
+      });
+
+      var symbolOne = {
+        path: &#x27;M -2,0 0,-2 2,0 0,2 z&#x27;,
+        strokeColor: &#x27;#F00&#x27;,
+        fillColor: &#x27;#F00&#x27;,
+        fillOpacity: 1
+      };
+
+      var marker = new google.maps.Marker({
+        position: pos,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: &#x27;#165dce&#x27;,
+          fillOpacity: 1.0,
+          strokeColor: &#x27;black&#x27;,
+          strokeOpacity: 0.4,
+          strokeWeight: 10
+        },
+        map: map,
+        title: &#x27;Você está aqui&#x27;
+      });
+      map.setCenter(pos);
+    },
+    function() {
+      //
+    });
+  }
+
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = &#x27;DRIVING&#x27;;
+  var originInput = document.getElementById(&#x27;origin-input&#x27;);
+  var destinationInput = document.getElementById(&#x27;destination-input&#x27;);
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
+
+  var options = {
+    types: [&#x27;geocode&#x27;]
+  };
+
+  originAutocomplete = new google.maps.places.Autocomplete(originInput, {placeIdOnly: false});
+  destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, {placeIdOnly: false});
+
+  // Tentando restringir a busca para Brasil somente
+  // originAutocomplete.setComponentRestrictions(
+  //   {&#x27;country&#x27;: [&#x27;us&#x27;]}
+  // );
+  // destinationAutocomplete.setComponentRestrictions(
+  //   {&#x27;country&#x27;: [&#x27;us&#x27;]}
+  // );
+
+  this.setupPlaceChangedListener(originAutocomplete, &#x27;ORIG&#x27;);
+  this.setupPlaceChangedListener(destinationAutocomplete, &#x27;DEST&#x27;);
+}
+
+AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+  var me = this;
+  autocomplete.bindTo(&#x27;bounds&#x27;, this.map);
+  autocomplete.addListener(&#x27;place_changed&#x27;, function() {
+    var place = autocomplete.getPlace();
+    console.log(place);
+    if (!place.place_id) {
+      window.alert(&quot;Por favor, selecione uma opção da lista de endereços.&quot;);
+      return;
+    }
+    var placeDetails = {
+      &quot;lat&quot; : place.geometry.location.lat(),
+      &quot;lng&quot; : place.geometry.location.lng(),
+      &quot;address&quot; : place.formatted_address,
+      &quot;district&quot;: &quot;&quot;,
+      &quot;city&quot;: &quot;&quot;,
+      &quot;state&quot;: &quot;&quot;,
+      &quot;name&quot; : place.name
+    }
+
+    for (var i = 0; i &lt; place.address_components.length; i++) {
+      if (place.address_components[i].types[0] == &quot;sublocality_level_1&quot;) {
+        placeDetails.district = place.address_components[i].long_name
+      } else if (place.address_components[i].types[0] == &quot;street_address&quot;) {
+        placeDetails.district = place.address_components[i].long_name
+      } else {
+        placeDetails.district = &quot;&quot;
+      }
+      console.log(placeDetails.district);
+
+      if (place.address_components[i].types[0] == &quot;administrative_area_level_2&quot;) {
+        placeDetails.city = place.address_components[i].long_name
+      } else {
+        placeDetails.city = &quot;&quot;
+      }
+      // console.log(place.address_components);
+      console.log(placeDetails.city);
+
+      if (place.address_components[i].types[0] == &quot;administrative_area_level_1&quot;) {
+        placeDetails.state = place.address_components[i].short_name
+      } else {
+        placeDetails.state = &quot;&quot;
+      }
+      console.log(placeDetails.state);
+
+    }
+    console.log(placeDetails);
+    if (mode === &#x27;ORIG&#x27;) {
+      me.originPlaceId = place.place_id;
+      directions.start = placeDetails;
+    } else {
+      me.destinationPlaceId = place.place_id;
+      directions.end = placeDetails;
+    }
+    //Rota no automático após o preenchimento dos inputs
+    // me.route();
+
+    //Local Storage
+    var destinoendereco = placeDetails;
+    destinoendereco.local = destinoendereco.address;
+    destinoendereco.place_id = place.place_id;
+    if (typeof(Storage) !== &quot;undefined&quot; &amp;&amp; !IE) {
+
+      // VALIDACAO
+      if (destinosRec.length &gt; 3){
+        destinosRec.shift();
+      };
+
+      destinosRec.push(destinoendereco);
+
+      localStorage.setItem(&quot;lastDest&quot;, JSON.stringify(destinosRec));
+      if (localStorage.lastDest == []) {
+        document.getElementById(&#x27;cacheBox&#x27;).style.display = &#x27;none&#x27;;
+      } else {
+        mostrarLocalStorage();
+      }
+
+    }
+  });
+};
+
+
+
+function mostrarLocalStorage(){
+  var novos = &quot;&lt;div id=&#x27;cache&#x27;&gt;&lt;p&gt;Buscas recentes&lt;/p&gt;&lt;img id=&#x27;arrowCache&#x27; src=&#x27;./img/grey-arrow.png&#x27; onclick=&#x27;openCache()&#x27;&gt;&lt;img id=&#x27;xCache&#x27; src=&#x27;./img/x.png&#x27; onclick=&#x27;closeCache()&#x27;&gt;&lt;ul id=&#x27;listaCache&#x27;&gt;&quot;;
+  for (var i = 0; i &lt; destinosRec.length; i++) {
+    novos += &quot;&lt;li onclick=&#x27;selectPoint(&quot; + i + &quot;, \&quot;cac\&quot;)&#x27;&gt;&quot; + &quot;&lt;b&gt;&quot; + destinosRec[i].name + &quot;&lt;/b&gt;&quot; + &quot; - &quot; +  destinosRec[i].address + &quot;&lt;/li&gt;&quot;;
+  }
+  novos += &quot;&lt;/ul&gt;&lt;/div&gt;&quot;;
+  document.getElementById(&#x27;cacheBox&#x27;).innerHTML = novos;
+}
+AutocompleteDirectionsHandler.prototype.route = function() {
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+  var me = this;
+
+  this.directionsService.route({
+    origin: {&#x27;placeId&#x27;: this.originPlaceId},
+    destination: {&#x27;placeId&#x27;: this.destinationPlaceId},
+    travelMode: this.travelMode
+  }, function(response, status) {
+    if (status === &#x27;OK&#x27;) {
+      me.directionsDisplay.setDirections(response);
+
+      directions.distance = Math.round(response.routes[0].legs[0].distance.value / 1000);
+      directions.duration = Math.round(response.routes[0].legs[0].duration.value / 60);
+
+      getOpcoes(directions);
+    } else {
+      window.alert(&#x27;Falha no cálculo da rota: &#x27; + status);
+    }
+  });
+  // hideBox();
+};
+
+// Limita o search para somente a partir de 4 caracteres
+var isAutocomplete = [false, false];
+function verifyAutocomplete(id){
+  if(!IE){
+
+    var inputN = (id==&#x27;origin-input&#x27; ?0:1);
+    //return;
+    console.log(&quot;Verify&quot;);
+    if(document.getElementById(id).value.length &gt;= 3 &amp;&amp; !isAutocomplete[inputN]){
+      isAutocomplete[inputN] = true;
+      console.log(&quot;=4&quot;);
+      var originAutocomplete = new google.maps.places.Autocomplete(document.getElementById(id), {placeIdOnly: false});
+
+      ADH.setupPlaceChangedListener(originAutocomplete, (inputN==0 ? &#x27;ORIG&#x27; : &#x27;DEST&#x27;));
+
+    }else if(document.getElementById(id).value.length &lt;= 2){
+      isAutocomplete[inputN] = false;
+      console.log(&quot;&lt;4&quot;);
+
+      var contArray = document.querySelectorAll(&#x27;.pac-container&#x27;);
+      for (var i = 0; i &lt; contArray.length; i++) {
+        contArray[i].style.display = &quot;none&quot;;
+      }
+      google.maps.event.clearListeners(document.getElementById(id));
+    }
+  }
+  else{
+    //IE8 version
+    if(document.getElementById(id).value.length &gt;= 3){                            // MUDAR ESTA CHAVE, PARA ISSO É PRECISO AUTORIZAR O USO DESSA API NA CONTA
+      var url = &quot;http://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBoViFoLS2catNnjAB4SyWSh4_niA69D34&amp;input=&quot; + document.getElementById(id).value;
+
+      var http = new XMLHttpRequest();
+
+      http.onreadystatechange = function() {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+
+          console.log(this.responseText);
+
+          predictions = JSON.parse(this.responseText).predictions;
+          IEAutocomplete(&quot;autocomplete-&quot;+id.substring(0, 1));
+        }
+      };
+
+      http.open(&quot;GET&quot;, url, true);
+      http.send();
+    }else{
+
+      document.getElementById(&quot;autocomplete-o&quot;).innerHTML=&quot;&quot;;
+      document.getElementById(&quot;autocomplete-d&quot;).innerHTML=&quot;&quot;;
+    }
+  }
+}
+
+var predictions;
+function IEAutocomplete(input){
+  var html = &quot;&lt;ul&gt;&quot;;
+  for (var i = 0; i &lt; predictions.length; i++) {
+    html += &quot;&lt;li onclick=&#x27;selectPoint(&quot; + i + &quot;, \&quot;prd\&quot;)&#x27;&gt;&quot; + predictions[i].description + &quot;&lt;/li&gt;&quot;;
+    predictions[i].local = predictions[i].description;
+    predictions[i].name = &quot;&quot;;
+  };
+  html += &quot;&lt;/ul&gt;&quot;;
+
+  document.getElementById(input).innerHTML = html;
+}
+
+//invertendo a rota e calculando
+function inverter() {
+  document.getElementById(&quot;players&quot;).style.display = &quot;inline&quot;;
+
+  var input1 = document.getElementById(&#x27;origin-input&#x27;).value;
+  document.getElementById(&#x27;origin-input&#x27;).value = document.getElementById(&#x27;destination-input&#x27;).value;
+  document.getElementById(&#x27;destination-input&#x27;).value = input1;
+
+  var origem = ADH.originPlaceId;
+  ADH.originPlaceId = ADH.destinationPlaceId;
+  ADH.destinationPlaceId = origem;
+  ADH.route();
+}
+
+var foco = 1;
+function selectPoint(i, j){
+
+  var arrayPlaces;
+  switch (j) {
+    case &quot;fav&quot;:
+    arrayPlaces = favoritos;
+    break;
+    case &quot;cts&quot;:
+    arrayPlaces = itensCts;
+    break;
+    case &quot;prd&quot;:
+    arrayPlaces = predictions;
+    break;
+    case &quot;cac&quot;:             // CASO O SELECTPOINT() VENHA DOS LOCAIS RECENTES EM CACHE                             &lt;------
+    arrayPlaces = destinosRec;  // nome do array global que terá os itens recentes em CACHE
+    break;
+  }
+
+  // console.log(j);
+
+  //operador ternário
+  // var arrayPlaces = (j==&quot;fav&quot;) ? favoritos : itensCts;
+  // console.log(arrayPlaces);
+
+  document.getElementById(&quot;box-content&quot;).scrollTop = 0;
+
+  if(IE){
+
+    document.getElementById(&quot;autocomplete-o&quot;).innerHTML=&quot;&quot;;
+    document.getElementById(&quot;autocomplete-d&quot;).innerHTML=&quot;&quot;;
+
+    console.log(arrayPlaces[i]);                                          // MUDAR ESTA CHAVE, PARA ISSO É PRECISO AUTORIZAR O USO DESSA API NA CONTA
+    var url = &quot;http://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBoViFoLS2catNnjAB4SyWSh4_niA69D34&amp;placeid=&quot; + arrayPlaces[i].place_id;
+
+    var http = new XMLHttpRequest();
+    var focoAtual = foco;
+    http.onreadystatechange = function() {
+      if (this.readyState == 4 &amp;&amp; this.status == 200) {
+
+        console.log(&quot;details:&quot;);
+        console.log(this.responseText);
+        if(focoAtual==1){
+          directions.start.lat = JSON.parse(this.responseText).result.geometry.location.lat;
+          directions.start.lng = JSON.parse(this.responseText).result.geometry.location.lng;
+        }
+        else{
+          directions.end.lat = JSON.parse(this.responseText).result.geometry.location.lat;
+          directions.end.lng = JSON.parse(this.responseText).result.geometry.location.lng;
+        }
+      }
+    };
+
+    http.open(&quot;GET&quot;, url, true);
+    http.send();
+
+  }
+
+  if(foco==1){
+
+    directions.start = arrayPlaces[i];
+    document.getElementById(&#x27;origin-input&#x27;).value = arrayPlaces[i].name + &quot; - &quot; + arrayPlaces[i].local;
+
+    if(!IE) ADH.originPlaceId = arrayPlaces[i].place_id;
+
+  }else {
+
+    directions.end = arrayPlaces[i];
+    document.getElementById(&#x27;destination-input&#x27;).value = arrayPlaces[i].name + &quot; - &quot; + arrayPlaces[i].local;
+
+    if(!IE) ADH.destinationPlaceId = arrayPlaces[i].place_id;
+  }
+  // if(document.getElementById(&#x27;origin-input&#x27;).value!=&#x27;&#x27; &amp;&amp; document.getElementById(&#x27;destination-input&#x27;).value!=&#x27;&#x27;) ADH.route();
+}
+
+function showBox() {
+  document.getElementById(&#x27;box-content&#x27;).style.display = &quot;block&quot;;
+  // document.getElementById(&#x27;box-content&#x27;).style.height = &quot;auto&quot;;
+  document.getElementById(&#x27;setacima&#x27;).style.display = &quot;inline&quot;;
+  document.getElementById(&#x27;setabaixo&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;origin-input&#x27;).focus();
+}
+
+function hideBox() {
+  document.getElementById(&#x27;box-content&#x27;).style.display = &quot;none&quot;;
+  // document.getElementById(&#x27;box-content&#x27;).style.height = &quot;0px&quot;;
+  document.getElementById(&#x27;setacima&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;setabaixo&#x27;).style.display = &quot;inline&quot;;
+
+}
+
+function openNav() {
+  // x.classList.toggle(&quot;change&quot;);
+  // document.getElementById(&quot;sidemenu&quot;).style.width = &quot;250px&quot;;
+  // document.getElementById(&quot;map&quot;).style.marginTop = &quot;500px&quot;;
+  // document.getElementById(&quot;taxi&quot;).style.marginLeft = &quot;250px&quot;;
+  // document.getElementById(&quot;box&quot;).style.marginTop = &quot;520px&quot;;
+
+  document.getElementById(&quot;header&quot;).style.height = &quot;500px&quot;;
+  document.getElementById(&#x27;subheader&#x27;).style.display = &quot;inline&quot;;
+  document.getElementById(&#x27;hamburger&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;exi&#x27;).style.display = &quot;inline&quot;;
+  document.getElementById(&#x27;menu&#x27;).style.borderBottom = &quot;solid&quot;;
+  document.getElementById(&#x27;menu&#x27;).style.borderColor = &quot;#5c5d60&quot;;
+  document.getElementById(&#x27;menu&#x27;).style.borderWidth = &quot;1px&quot;;
+}
+
+function menuHist(){
+  document.getElementById(&quot;header&quot;).style.height = &quot;100%&quot;;
+  document.getElementById(&quot;subheader&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;politica&quot;).style.marginTop = &quot;100%&quot;;
+  document.getElementById(&quot;menuHistorico&quot;).style.display = &quot;inline&quot;;
+
+}
+
+function closeMenuHist(){
+  document.getElementById(&quot;header&quot;).style.height = &quot;500px&quot;;
+  document.getElementById(&quot;subheader&quot;).style.display = &quot;inline&quot;;
+  document.getElementById(&quot;politica&quot;).style.marginTop = &quot;380px&quot;;
+  document.getElementById(&quot;menuHistorico&quot;).style.display = &quot;none&quot;;
+
+}
+
+function menuFav(){
+  document.getElementById(&quot;header&quot;).style.height = &quot;100%&quot;;
+  document.getElementById(&quot;subheader&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;politica&quot;).style.marginTop = &quot;100%&quot;;
+  document.getElementById(&quot;menuFavorito&quot;).style.display = &quot;inline&quot;;
+
+}
+
+function closeMenuFav(){
+  document.getElementById(&quot;header&quot;).style.height = &quot;500px&quot;;
+  document.getElementById(&quot;subheader&quot;).style.display = &quot;inline&quot;;
+  document.getElementById(&quot;politica&quot;).style.marginTop = &quot;380px&quot;;
+  document.getElementById(&quot;menuFavorito&quot;).style.display = &quot;none&quot;;
+
+}
+
+function closeNav() {
+  // document.getElementById(&quot;sidemenu&quot;).style.width = &quot;0&quot;;
+  // document.getElementById(&quot;map&quot;).style.marginLeft = &quot;0&quot;;
+  // document.getElementById(&quot;taxi&quot;).style.marginLeft = &quot;50px&quot;;
+  // document.getElementById(&quot;box&quot;).style.marginLeft = &quot;20px&quot;;
+
+  document.getElementById(&quot;header&quot;).style.height = &quot;50px&quot;;
+  document.getElementById(&#x27;subheader&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;hamburger&#x27;).style.display = &quot;inline&quot;;
+  document.getElementById(&#x27;exi&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;menu&#x27;).style.borderBottom = &quot;hidden&quot;;
+  document.getElementById(&quot;menuHistorico&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;menuFavorito&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;politica&quot;).style.marginTop = &quot;380px&quot;;
+
+}
+
+function openCache() {
+  document.getElementById(&quot;cache&quot;).style.height = &quot;auto&quot;;
+  // document.getElementById(&quot;cache&quot;).style.borderBottom = &quot;none&quot;;
+  document.getElementById(&quot;listaCache&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;arrowCache&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;xCache&quot;).style.display = &quot;inline-block&quot;;
+
+}
+
+function closeCache() {
+  document.getElementById(&quot;cache&quot;).style.height = &quot;45px&quot;;
+  document.getElementById(&quot;cache&quot;).style.borderBottom = &quot;solid&quot;;
+  document.getElementById(&quot;cache&quot;).style.borderWidth = &quot;1px&quot;;
+  document.getElementById(&quot;cache&quot;).style.borderColor = &quot;#bbb&quot;;
+  document.getElementById(&quot;listaCache&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;arrowCache&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;xCache&quot;).style.display = &quot;none&quot;;
+
+}
+
+function openCtec() {
+  document.getElementById(&quot;cTec&quot;).style.height = &quot;auto&quot;;
+  // document.getElementById(&quot;cTec&quot;).style.borderBottom = &quot;none&quot;;
+  document.getElementById(&quot;listaCtec&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;arrowCtec&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;xCtec&quot;).style.display = &quot;inline-block&quot;;
+
+}
+
+function closeCtec() {
+  document.getElementById(&quot;cTec&quot;).style.height = &quot;45px&quot;;
+  document.getElementById(&quot;cTec&quot;).style.borderBottom = &quot;solid&quot;;
+  document.getElementById(&quot;cTec&quot;).style.borderWidth = &quot;1px&quot;;
+  document.getElementById(&quot;cTec&quot;).style.borderColor = &quot;#bbb&quot;;
+  document.getElementById(&quot;listaCtec&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;arrowCtec&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;xCtec&quot;).style.display = &quot;none&quot;;
+
+}
+
+function openFav() {
+  document.getElementById(&quot;favMapa&quot;).style.height = &quot;auto&quot;;
+  document.getElementById(&quot;listaFav&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;arrowFav&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;xFav&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;newFav&quot;).style.display = &quot;inline-block&quot;;
+
+}
+
+function closeFav() {
+  document.getElementById(&quot;favMapa&quot;).style.height = &quot;45px&quot;;
+  document.getElementById(&quot;favMapa&quot;).style.borderBottom = &quot;solid&quot;;
+  document.getElementById(&quot;favMapa&quot;).style.borderWidth = &quot;1px&quot;;
+  document.getElementById(&quot;favMapa&quot;).style.borderColor = &quot;#bbb&quot;;
+  document.getElementById(&quot;listaFav&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;arrowFav&quot;).style.display = &quot;inline-block&quot;;
+  document.getElementById(&quot;xFav&quot;).style.display = &quot;none&quot;;
+  document.getElementById(&quot;newFav&quot;).style.display = &quot;none&quot;;
+
+
+}
+
+
+function showPlayers() {
+  if(!IE) ADH.route();
+  else{
+    var http = new XMLHttpRequest();
+    var focoAtual = foco;
+    http.onreadystatechange = function() {
+      if (this.readyState == 4 &amp;&amp; this.status == 200) {
+
+        console.log(this.responseText);
+        var data = JSON.parse(this.responseText);
+        directions.duration = data.rows[0].elements[0].duration.value/60;
+        directions.distance = data.rows[0].elements[0].distance.value/1000;
+
+        getOpcoes(directions);
+      }
+    };
+    var url = &quot;http://maps.googleapis.com/maps/api/distancematrix/json?origins=&quot; + directions.start.lat + &quot;,&quot; + directions.start.lng + &quot;&amp;destinations=&quot; + directions.end.lat + &quot;,&quot; + directions.end.lng + &quot;&amp;key=AIzaSyBoViFoLS2catNnjAB4SyWSh4_niA69D34&quot;;
+    console.log(&quot;url:&quot; + url);
+    http.open(&quot;GET&quot;, url, true);
+    http.send();
+  }
+  document.getElementById(&quot;players&quot;).style.display = &quot;inline&quot;;
+
+}
+
+function hidePlayers(){
+  document.getElementById(&quot;players&quot;).style.display = &quot;none&quot;;
+
+}
+
+//Recuperando data, mes e dias da semana
+var dias = [
+  {dia: 0, nome: &#x27;Domingo&#x27;},
+  {dia: 1, nome: &#x27;Segunda-feira&#x27;},
+  {dia: 2, nome: &#x27;Terça-feira&#x27;},
+  {dia: 3, nome: &#x27;Quarta-feira&#x27;},
+  {dia: 4, nome: &#x27;Quinta-feira&#x27;},
+  {dia: 5, nome: &#x27;Sexta-feira&#x27;},
+  {dia: 6, nome: &#x27;Sábado-feira&#x27;}
+];
+
+var meses = [
+  {mes: 0, certo: 1, nome: &#x27;Janeiro&#x27;},
+  {mes: 1, certo: 2, nome: &#x27;Fevereiro&#x27;},
+  {mes: 2, certo: 3, nome: &#x27;Março&#x27;},
+  {mes: 3, certo: 4, nome: &#x27;Abril&#x27;},
+  {mes: 4, certo: 5, nome: &#x27;Maio&#x27;},
+  {mes: 5, certo: 6, nome: &#x27;Junho&#x27;},
+  {mes: 6, certo: 7, nome: &#x27;Julho&#x27;},
+  {mes: 7, certo: 8, nome: &#x27;Agostos&#x27;},
+  {mes: 8, certo: 9, nome: &#x27;Setembro&#x27;},
+  {mes: 9, certo: 10, nome: &#x27;Outubro&#x27;},
+  {mes: 10, certo: 11, nome: &#x27;Novembro&#x27;},
+  {mes: 11, certo: 12, nome: &#x27;Dezembro&#x27;}
+];
+
+var hoje = new Date().getUTCDay();
+var dia = new Date().getUTCDate();
+var mes = new Date().getUTCMonth();
+var ano = new Date().getUTCFullYear();
+
+for(var i = 0; i &lt;= dias.length-1; i++){
+  if(dias[i].dia == hoje){
+    var diaSemana = dias[i].nome;
+  }
+};
+
+for(var i = 0; i &lt;= meses.length-1; i++){
+  if(meses[i].mes == mes){
+    var mesCorreto = meses[i].certo;
+  }
+};
+
+window.onload = function(){
+  document.getElementById(&#x27;datntim&#x27;).innerHTML = (diaSemana + &#x27;, &#x27; + dia + &#x27;/&#x27; + mesCorreto + &#x27;/&#x27; + ano);
+  //puxando arrays de outro script e escrevendo no html
+  document.getElementById(&quot;cTec&quot;).innerHTML = htmlCt;
+  showFavMapa();
+  // document.getElementById(&#x27;favoritos&#x27;).innerHTML = htmlf;
+  // document.getElementById(&#x27;historico&#x27;).innerHTML = htmlHist;
+  getHistorico();
+  mostrarFavoritos();
+
+  //
+  document.getElementById(&#x27;origin-input&#x27;).onfocus = function() {foco=1};
+  document.getElementById(&#x27;destination-input&#x27;).onfocus = function() {foco=2};
+  if(!IE &amp;&amp; localStorage.lastDest!=undefined) mostrarLocalStorage();
+};
+
+var directions = {};
+function getOpcoes(data){
+
+  //recuperando distancia e tempo da corrida e printando
+  if (directions.distance &gt; 0 &amp;&amp; directions.duration &gt; 0) {
+    var corrida = &quot;&quot;;
+    corrida += &quot;&lt;h3&gt;Seu trajeto: &quot; + directions.distance + &quot; km - &quot; + directions.duration + &quot; min&lt;/h3&gt;&quot;;
+    document.getElementById(&quot;corrida&quot;).innerHTML = corrida;
+  };
+
+  var http = new XMLHttpRequest();
+
+  console.log(http);
+
+  http.onreadystatechange = function() {
+    if (this.readyState == 4 &amp;&amp; this.status == 200) {
+      mostrarOpcoes(JSON.parse(this.responseText).records);
+
+      console.log(JSON.parse(this.responseText));
+
+
+    }
+  };
+
+  http.open(&quot;POST&quot;, API_URL, true);
+  http.setRequestHeader(&quot;Authorization&quot;, &quot;65edc9b5-d134-4c8b-9be5-ee2c722f4a54&quot;);
+  http.send(JSON.stringify(data));
+  console.log(data);
+
+}
+
+
+
+
+
+function mostrarOpcoes(records){
+  // ordenar por prestadores
+  // records.sort(function(a, b){
+  //   var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+  //   if (nameA &gt; nameB) return -1;
+  //   if (nameA &lt; nameB) return 1;
+  //   return 0;
+  // });
+
+  console.log(records);
+
+  var html = &#x27;&lt;ul class=&quot;listaPrecos&quot;&gt;&lt;li&gt;&lt;img src=&quot;img/&#x27; + records[0].modality.name.substring(0, 2) + &#x27;.png&quot;/&gt;&#x27;;
+
+  for (var i = 0; i &lt; records.length; i++) {
+    html += &quot;&lt;div class=&#x27;spacetipo&#x27;&gt;&lt;span&gt;&quot; + records[i].modality.name + &quot;&lt;/span&gt;&lt;/div&gt;&lt;span class=&#x27;spaceprice&#x27;&gt;&quot; + records[i].price + &quot;&lt;/span&gt;&lt;span&gt;&quot; + (records[i].waiting_time / 60) + &quot; min&lt;/span&gt;&quot;;
+    html += &quot;&lt;div class=&#x27;a&#x27;&gt;&lt;a href=&#x27;&#x27;&gt;IR&lt;/a&gt;&lt;/div&gt;&quot;
+
+    if (records[i+1] &amp;&amp; records[i].modality.name != records[i+1].modality.name){
+      html += &#x27;&lt;li&gt;&lt;img src=&quot;img/&#x27; + records[i+1].modality.name.substring(0, 2) + &#x27;.png&quot;/&gt;&#x27;;
+
+      // if (records[i].modality.name == &quot;99 TÁXI 30% off&quot;) {
+      //   html += &quot;&lt;span&gt;30% off&lt;/span&gt;&lt;span&gt;&quot; + records[i].price + &quot;&lt;/span&gt;&lt;span&gt;&quot; + (records[i].waiting_time / 60) + &quot; min&lt;/span&gt;&quot;;
+      // }
+    }
+
+
+
+
+  }
+  html += &quot;&lt;/li&gt;&lt;/ul&gt;&quot;;
+
+  document.getElementById(&quot;opcoes&quot;).innerHTML = html;
+
+}
+
+function centralizar() {
+  initMap();
+  document.getElementById(&#x27;header&#x27;).style.height = &quot;50px&quot;;
+  document.getElementById(&#x27;subheader&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;exi&#x27;).style.display = &quot;none&quot;;
+  document.getElementById(&#x27;hamburger&#x27;).style.display = &quot;inline&quot;;
+  document.getElementById(&#x27;players&#x27;).style.display = &quot;none&quot;;
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="./assets/js/yui-prettify.js"></script>
+<script src="./assets/../api.js"></script>
+<script src="./assets/js/api-filter.js"></script>
+<script src="./assets/js/api-list.js"></script>
+<script src="./assets/js/api-search.js"></script>
+<script src="./assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -13,6 +13,7 @@ function checkIE() {
   }
 }
 var IE = checkIE() > 0;
+if(IE) window.location.replace("http://taximanager.000webhostapp.com/IE8/mapa.php");
 
 var destinosRec = [];
 if(!IE && localStorage.lastDest!=undefined) destinosRec = JSON.parse(localStorage.lastDest);
@@ -55,12 +56,7 @@ function initMap() {
 
   ADH = new AutocompleteDirectionsHandler(map);
 }
-/**
-* Represents um mapa.
- * @constructor
- * @param {google.map} map - O que ele faz???.
- * @return {array} - Retorna uma lista de enderecos que foram completados
-*/
+
 function AutocompleteDirectionsHandler(map) {
 
   //IE8 retornando opções de endereços
@@ -134,20 +130,8 @@ function AutocompleteDirectionsHandler(map) {
   this.directionsDisplay = new google.maps.DirectionsRenderer;
   this.directionsDisplay.setMap(map);
 
-  var options = {
-    types: ['geocode']
-  };
-
   originAutocomplete = new google.maps.places.Autocomplete(originInput, {placeIdOnly: false});
   destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, {placeIdOnly: false});
-
-  // Tentando restringir a busca para Brasil somente
-  // originAutocomplete.setComponentRestrictions(
-  //   {'country': ['us']}
-  // );
-  // destinationAutocomplete.setComponentRestrictions(
-  //   {'country': ['us']}
-  // );
 
   this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
@@ -224,24 +208,17 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
       destinosRec.push(destinoendereco);
 
       localStorage.setItem("lastDest", JSON.stringify(destinosRec));
-      if (localStorage.lastDest == []) {
-        document.getElementById('cacheBox').style.display = 'none';
-      } else {
-        mostrarLocalStorage();
-      }
-
+      mostrarLocalStorage();
     }
   });
 };
 
-
-
 function mostrarLocalStorage(){
-  var novos = "<div id='cache'><p>Buscas recentes</p><img id='arrowCache' src='../img/grey-arrow.png' onclick='openCache()'><img id='xCache' src='../img/x.png' onclick='closeCache()'><ul id='listaCache'>";
+  var novos = "<p>Buscas recentes</p><img id='arrowCache' src='./img/grey-arrow.png' onclick='openCacheBox()'><img id='xCache' src='./img/x.png' onclick='closeCacheBox()'><ul id='listaCache'>";
   for (var i = 0; i < destinosRec.length; i++) {
     novos += "<li onclick='selectPoint(" + i + ", \"cac\")'>" + "<b>" + destinosRec[i].name + "</b>" + " - " +  destinosRec[i].address + "</li>";
   }
-  novos += "</ul></div>";
+  novos += "</ul>";
   document.getElementById('cacheBox').innerHTML = novos;
 }
 AutocompleteDirectionsHandler.prototype.route = function() {
@@ -259,7 +236,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       me.directionsDisplay.setDirections(response);
 
       directions.distance = Math.round(response.routes[0].legs[0].distance.value / 1000);
-      // directions.distance = (response.routes[0].legs[0].distance.value).substring(0, 2)
       directions.duration = Math.round(response.routes[0].legs[0].duration.value / 60);
 
       getOpcoes(directions);
@@ -289,7 +265,7 @@ function verifyAutocomplete(id){
       isAutocomplete[inputN] = false;
       console.log("<4");
 
-      var contArray = document.querySelectorAll('.pac-container');
+      var contArray = document.getElementsByClassName('pac-container');
       for (var i = 0; i < contArray.length; i++) {
         contArray[i].style.display = "none";
       }
@@ -462,8 +438,6 @@ function menuHist(){
   document.getElementById("subheader").style.display = "none";
   document.getElementById("politica").style.marginTop = "100%";
   document.getElementById("menuHistorico").style.display = "inline";
-  document.getElementById("header").style.overflowY = "auto";
-
 
 }
 
@@ -472,8 +446,6 @@ function closeMenuHist(){
   document.getElementById("subheader").style.display = "inline";
   document.getElementById("politica").style.marginTop = "380px";
   document.getElementById("menuHistorico").style.display = "none";
-  document.getElementById("header").style.overflowY = "none";
-
 
 }
 
@@ -482,7 +454,6 @@ function menuFav(){
   document.getElementById("subheader").style.display = "none";
   document.getElementById("politica").style.marginTop = "100%";
   document.getElementById("menuFavorito").style.display = "inline";
-  document.getElementById("header").style.overflowY = "auto";
 
 }
 
@@ -491,7 +462,6 @@ function closeMenuFav(){
   document.getElementById("subheader").style.display = "inline";
   document.getElementById("politica").style.marginTop = "380px";
   document.getElementById("menuFavorito").style.display = "none";
-  document.getElementById("header").style.overflowY = "none";
 
 }
 
@@ -509,25 +479,23 @@ function closeNav() {
   document.getElementById("menuHistorico").style.display = "none";
   document.getElementById("menuFavorito").style.display = "none";
   document.getElementById("politica").style.marginTop = "380px";
-  document.getElementById("header").style.overflowY = "none";
-
 
 }
 
-function openCache() {
-  document.getElementById("cache").style.height = "auto";
-  // document.getElementById("cache").style.borderBottom = "none";
+function openCacheBox() {
+  document.getElementById("cacheBox").style.height = "auto";
+  // document.getElementById("cacheBox").style.borderBottom = "none";
   document.getElementById("listaCache").style.display = "inline-block";
   document.getElementById("arrowCache").style.display = "none";
   document.getElementById("xCache").style.display = "inline-block";
 
 }
 
-function closeCache() {
-  document.getElementById("cache").style.height = "45px";
-  document.getElementById("cache").style.borderBottom = "solid";
-  document.getElementById("cache").style.borderWidth = "1px";
-  document.getElementById("cache").style.borderColor = "#bbb";
+function closeCacheBox() {
+  document.getElementById("cacheBox").style.height = "45px";
+  document.getElementById("cacheBox").style.borderBottom = "solid";
+  document.getElementById("cacheBox").style.borderWidth = "1px";
+  document.getElementById("cacheBox").style.borderColor = "#bbb";
   document.getElementById("listaCache").style.display = "none";
   document.getElementById("arrowCache").style.display = "inline-block";
   document.getElementById("xCache").style.display = "none";
@@ -654,11 +622,12 @@ window.onload = function(){
   document.getElementById('datntim').innerHTML = (diaSemana + ', ' + dia + '/' + mesCorreto + '/' + ano);
   //puxando arrays de outro script e escrevendo no html
   document.getElementById("cTec").innerHTML = htmlCt;
-  showFavMapa();
+  //document.getElementById('favMapa').innerHTML = mapaHtml;
   // document.getElementById('favoritos').innerHTML = htmlf;
   // document.getElementById('historico').innerHTML = htmlHist;
   getHistorico();
   mostrarFavoritos();
+  showFavMapa();
 
   //
   document.getElementById('origin-input').onfocus = function() {foco=1};
@@ -668,7 +637,8 @@ window.onload = function(){
 
 var directions = {};
 function getOpcoes(data){
-
+  console.log('data:');
+  console.log(data);
   //recuperando distancia e tempo da corrida e printando
   if (directions.distance > 0 && directions.duration > 0) {
     var corrida = "";
@@ -697,18 +667,29 @@ function getOpcoes(data){
 
 }
 
+
+
+
+
 function mostrarOpcoes(records){
+  // ordenar por prestadores
+  // records.sort(function(a, b){
+  //   var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+  //   if (nameA > nameB) return -1;
+  //   if (nameA < nameB) return 1;
+  //   return 0;
+  // });
 
-  // console.log(records.modality.name);
+  console.log(records);
 
-  var html = '<ul class="listaPrecos"><li><img src="../img/' + records[0].modality.name.substring(0, 2) + '.png"/>';
+  var html = '<ul class="listaPrecos"><li><img src="img/' + records[0].modality.name.substring(0, 2) + '.png"/>';
 
   for (var i = 0; i < records.length; i++) {
     html += "<div class='spacetipo'><span>" + records[i].modality.name + "</span></div><span class='spaceprice'>" + records[i].price + "</span><span>" + (records[i].waiting_time / 60) + " min</span>";
     html += "<div class='a'><a href=''>IR</a></div>"
 
     if (records[i+1] && records[i].modality.name != records[i+1].modality.name){
-      html += '<li><img src="../img/' + records[i+1].modality.name.substring(0, 2) + '.png"/>';
+      html += '<li><img src="img/' + records[i+1].modality.name.substring(0, 2) + '.png"/>';
 
       // if (records[i].modality.name == "99 TÁXI 30% off") {
       //   html += "<span>30% off</span><span>" + records[i].price + "</span><span>" + (records[i].waiting_time / 60) + " min</span>";

@@ -1,0 +1,599 @@
+#map {
+  height: 100%;
+  width: 100%;
+
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  background-size: cover;
+  background-image: url("../img/gmapsimagem.jpg");
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+
+}
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  left: 80px;
+}
+
+#origin-input,
+#destination-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 60px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 260px;
+}
+
+#origin-input:focus,
+#destination-input:focus {
+  border-color: #4d90fe;
+}
+
+#mode-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  margin-left: 12px;
+  padding: 5px 11px 0px 11px;
+}
+
+#mode-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+/*.container {
+padding: 0px;
+}*/
+
+/* Trajeto */
+#header {
+  /*background-color: #FDDE0A;*/
+  background-color: #242424;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  box-shadow: -3px 3px 3px 1px #888888;
+}
+
+#menu {
+  height: 50px;
+}
+
+#header h2 {
+  margin-top: 10px;
+  color: #FDDE0A;
+  padding-left: 25px;
+}
+
+#texto {
+  float: right;
+  color: white;
+  height: 50px;
+}
+
+#texto a {
+  padding: 15px;
+  padding-right: 70px;
+  vertical-align: middle;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  color: #9fa1a5;
+}
+
+#taxi {
+  margin-top: -15px;
+  width: 200px;
+  margin-left: 40px;
+}
+
+#subheader {
+  display: none;
+  border-top: solid;
+  border-width: 1px;
+  border-color: white;
+}
+
+#hamburger {
+  /*display: inline-block;*/
+  cursor: pointer;
+  /*position: absolute;*/
+  padding: 15px;
+  float: right;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 20px;
+  height: 3px;
+  background-color: #5c5d60;
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+#exi {
+  cursor: pointer;
+  padding: 15px;
+  float: right;
+  height: 20px;
+  width: 20px;
+  display: none;
+}
+
+#exiHist {
+  cursor: pointer;
+  padding: 0px;
+  height: 10px;
+  width: 10px;
+  display: inline;
+  margin-left: 15px;;
+}
+
+#exiFav {
+  cursor: pointer;
+  padding: 0px;
+  height: 10px;
+  width: 10px;
+  display: inline;
+  margin-left: 15px;;
+}
+
+tr td {
+  border-bottom: 1pt solid black;
+  border-color: #bbb;
+  border-bottom: collapse;
+}
+
+
+
+
+/*.change .bar1 {
+-webkit-transform: rotate(-45deg) translate(-6px, 3px) ;
+transform: rotate(-45deg) translate(-6px, 3px) ;
+}
+
+.change .bar2 {
+opacity: 0;
+}
+
+.change .bar3 {
+-webkit-transform: rotate(45deg) translate(-4px, -4px) ;
+transform: rotate(45deg) translate(-4px, -4px) ;
+}*/
+
+#config {
+  display: inline;
+  float: right;
+  margin: 30px;
+  margin-right: 70px;
+  font-size: 16px;
+  color: #9fa1a5;
+}
+
+#config p {
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #5c5d60;
+}
+
+#config p:hover {
+  color: #9fa1a5;
+  cursor: pointer;
+}
+
+#sobre {
+  display: inline;
+  float: right;
+  margin: 30px;
+  margin-right: 70px;
+  font-size: 16px;
+  color: #9fa1a5;
+}
+
+#sobre p {
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #5c5d60;
+}
+
+#sobre p:hover {
+  color: #9fa1a5;
+  cursor: pointer;
+}
+
+#politica {
+  position: relative;
+  margin-top: 380px;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #5c5d60;
+  width: 80%;
+  left: 10%;
+}
+
+#userLocal {
+  width: 15px;
+  display: inline;
+  float: left;
+  padding-top: 20px;
+  padding-left: 45px;
+}
+
+#userLocal:hover {
+  cursor: pointer;
+}
+
+#politica span {
+  float: left;
+  padding-top: 20px;
+  padding-left: 5px;
+  display: inline;
+  color: #5c5d60;
+  text-align: middle;
+}
+
+#politica a {
+  float: right;
+  padding: 20px;
+  padding-right: 45px;
+  display: inline;
+  color: #5c5d60;
+  text-decoration: none;
+}
+
+#politica a:hover {
+  color: #9fa1a5;
+}
+
+#menuHistorico {
+  display: none;
+  position: relative;
+  width: 100%;
+  left: 5%;
+}
+
+#menuHistorico table {
+  margin-left: 15%;
+}
+
+#menuHistorico h1 {
+  margin-top: 40px;
+  color: white;
+  font-weight: normal;
+  display: inline-block;
+}
+
+#menuFavorito {
+  display: none;
+  position: relative;
+  width: 100%;
+  left: 5%;
+}
+
+#menuFavorito table {
+  margin-left: 15%;
+}
+
+#menuFavorito h1 {
+  margin-top: 40px;
+  color: white;
+  font-weight: normal;
+  display: inline-block;
+}
+
+#box{
+  width: 424px;
+  margin: 20px;
+  margin-top: 70px;
+  position: absolute;
+  z-index: 1;
+  background-color: #FFFFFF;
+  box-shadow: -3px 3px 3px 1px #888888;
+}
+
+#box-content {
+  padding: 20px;
+  /*transition: height 5s;*/
+  height: 460px;;
+  overflow-y:scroll;
+}
+
+#go {
+  width: 40px;
+  border: solid;
+  border-width: 1px;
+  display: inline-block;
+  border-color: grey;
+  margin-left: 12px;
+  border-color: #bbbbbb;
+}
+
+#calcular {
+  margin: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  float: right;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+#calcular:hover {
+  cursor: pointer;
+}
+
+#invert {
+
+  margin: 10px;
+  margin-top: 15px;
+
+  float: right;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+#invert:hover {
+  cursor: pointer;
+}
+
+#user {
+  background-color: #FE5900;
+  padding: 10px;
+}
+
+#user span {
+  color: white;
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: -20px;
+}
+
+#imgPerfil {
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#cacheBox {
+  margin-top: 5px;
+  height: 45px;
+  border: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+
+}
+
+#arrowCache, #arrowCtec, #arrowFav {
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin:11px;
+}
+
+#arrowCache:hover, #arrowCtec:hover, #arrowFav:hover {
+  width: 20px;
+  height: 20px;
+  float: right;
+  cursor: pointer;
+}
+
+#xCache, #xCtec, #xFav {
+  width: 15px;
+  height: 15px;
+  float: right;
+  margin:11px;
+  display: none;
+}
+
+#xCache:hover, #xCtec:hover, #xFav:hover {
+  width: 15px;
+  height: 15px;
+  float: right;
+  margin:11px;
+  cursor: pointer;
+}
+
+#cacheBox p {
+  padding-left: 10px;
+  display: inline-block;
+}
+
+#cacheBox ul {
+  margin-top: -1px;
+  padding-left: 0px;
+  display: none;
+  border: solid;
+  border-width: 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-color: #bbbbbb;
+}
+
+#cacheBox li {
+  list-style-type: none;
+  /*padding-top: 5px;
+  border-bottom: solid;
+  border-width: 1px;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-color: #bbbbbb;
+  font-size: 14px;
+  font-weight: lighter;
+  font-weight: 300;
+}
+
+#cacheBox li:hover {
+  cursor: pointer;
+}
+
+#cTec {
+  margin-top: 10px;
+  height: 45px;
+  border: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+}
+
+#cTec p {
+  padding-left: 10px;
+  display: inline-block;
+
+}
+
+#cTec ul {
+  margin-top: -1px;
+  padding-left: 0px;
+  display: none;
+  border: solid;
+  border-width: 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-color: #bbbbbb;
+  width: 100%;
+}
+
+#cTec li {
+  list-style-type: none;
+  /*padding-top: 5px;
+  border-bottom: solid;
+  border-width: 1px;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-color: #bbbbbb;
+  font-size: 14px;
+  font-weight: lighter;
+  font-weight: 300;
+}
+
+#cTec li:hover {
+  cursor: pointer;
+}
+
+#favMapa {
+  margin-top: 10px;
+  height: 45px;
+  border: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+
+}
+
+#favMapa p {
+  padding-left: 10px;
+  display: inline-block;
+}
+
+#favMapa ul {
+  margin-top: -1px;
+  padding-left: 0px;
+  display: none;
+  border: solid;
+  border-width: 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-color: #bbbbbb;
+  width: 100%;
+}
+
+#favMapa li {
+  list-style-type: none;
+  /*padding-top: 5px;
+  border-bottom: solid;
+  border-width: 1px;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-color: #bbbbbb;
+  font-size: 14px;
+  font-weight: lighter;
+  font-weight: 300;
+}
+
+#favMapa li:hover {
+  cursor: pointer;
+}
+
+#inputs {
+  border: 1px solid #BBBBBB;
+  padding: 5px;
+  width: 300px;
+  float: left;
+  display: inline;
+
+}
+
+#origin-input, #destination-input {
+  margin-left: 10px;
+}
+
+#origin-input:focus, #destination-input:focus {
+  background-color: #EEEEEE;
+  border: initial;
+}
+
+#setabaixo {
+  height: 20px;
+  width: 20px;
+  display: none;
+  float: right;
+  margin: 10px;
+}
+
+#setabaixo:hover {
+  cursor: pointer;
+}
+
+#setacima {
+  width: 21px;
+  height: 13px;
+  display: inline;
+  float: right;
+  margin: 10px;
+}
+
+#setacima:hover {
+  cursor: pointer;
+}
+
+
+/* IE8 */
+#autocomplete-o, #autocomplete-d {
+  /*border: 1px solid #BBBBBB;*/
+  border-image: none;
+  background-color: #FFFFFF;
+  position: absolute;
+}
+
+#testando {
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  border: solid;
+  z-index: 10;
+}
