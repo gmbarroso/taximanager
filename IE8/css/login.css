@@ -2,11 +2,21 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: black;
-  font-family: 'Roboto', sans-serif;
+  background-image: url(../img/Capa_TM.png) ;
   overflow: hidden;
-
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+  
 }
+
+
+
 
 #loginBody {
   position: absolute;
@@ -20,6 +30,13 @@ html, body {
 #imagem {
   width: 320px;
   height: 60px;
+  margin-bottom: 30px;
+}
+
+#btn_entrar {
+
+  height: 48px; border-style: ridge;
+  margin-bottom: 10px;
 }
 
 .form-group input {
@@ -49,8 +66,8 @@ html, body {
   border: none;
   height: 25px;
   width: 243px;
-  background-color: #FDDE0A;
-  color: black;
+  background-color: black;
+  color: whitesmoke;;
 }
 
 #login:hover {
@@ -61,7 +78,7 @@ html, body {
   height: 25px;
   width: 243px;
   cursor: pointer;
-  background-color: black;
+  background-color: #FDDE0A;
   color: #FDDE0A;
   border-color: #FDDE0A;
   border: solid;
@@ -81,3 +98,4 @@ html, body {
   text-decoration: underline;
   color: #FDDE0A;
 }
+

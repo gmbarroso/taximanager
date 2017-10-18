@@ -274,7 +274,7 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
             for ($i=0; $i < count($opcoes); $i++) {
               echo '<li><img src="img/'. substr($opcoes[$i]->modality->name, 0, 2). '.png"/>';
               echo "<div class='spacetipo'><span>". $opcoes[$i]->modality->name. "</span></div><span class='spaceprice'>". $opcoes[$i]->price. "</span><span>". ($opcoes[$i]->waiting_time / 60). " min</span>";
-              echo "<div class='a'><a href=''>IR</a></div></li>";
+              // echo "<div class='a'><div href=''>IR</div></div></li>";
 
               if(isset($opcoes[$i+1]) && $opcoes[$i]->modality->name != $opcoes[$i+1]->modality->name){
                 //echo '<li><img src="img/'. substr($opcoes[$i+1]->modality->name, 0, 2). '.png"/>';
