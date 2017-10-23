@@ -386,14 +386,14 @@ function selectPoint(i, j){
   if(foco==1){
 
     directions.start = arrayPlaces[i];
-    document.getElementById('origin-input').value = arrayPlaces[i].name + " - " + arrayPlaces[i].local;
+    document.getElementById('origin-input').value = /* arrayPlaces[i].name + " - " + */ arrayPlaces[i].local;
 
     if(!IE) ADH.originPlaceId = arrayPlaces[i].place_id;
 
   }else {
 
     directions.end = arrayPlaces[i];
-    document.getElementById('destination-input').value = arrayPlaces[i].name + " - " + arrayPlaces[i].local;
+    document.getElementById('destination-input').value = /* arrayPlaces[i].name + " - " + */ arrayPlaces[i].local;
 
     if(!IE) ADH.destinationPlaceId = arrayPlaces[i].place_id;
   }

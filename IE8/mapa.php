@@ -26,7 +26,6 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
     $result = curl_exec($ch);
     curl_close($ch);
 
-
   $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -79,6 +78,8 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
     $result = curl_exec($ch);
     curl_close($ch);
 
+
+
   $result = json_decode($result);
   $result;
   $duration = $result->rows[0]->elements[0]->duration->value/60;
@@ -108,19 +109,11 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
     $result = curl_exec($ch);
     curl_close($ch);
 
+
   $opcoes = json_decode($result)->records;
 }
 
 ?>
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -134,9 +127,6 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
   <!--<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">-->
   <link href="./css/style.css" rel="stylesheet">
   <script src="./js/index.js"></script>
-  <script src="./js/variaveis.js"></script>
-  <script src="./js/historico.js"></script>
-  <script src="./js/favoritos.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoViFoLS2catNnjAB4SyWSh4_niA69D34&libraries=places&callback=initMap" async defer></script>
   <link href="./css/historico.css" rel="stylesheet">
   <link href="./css/favoritos.css" rel="stylesheet">
@@ -177,7 +167,7 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
       <img id="exi" src="./img/x.png" alt="" onclick="closeNav()">
       <div id="texto">
         <a href="#" class="duvidas">Dúvidas Frequentes</a>
-        <a href="index.html" class="logout">Logout</a>
+        <a href="../index.html" class="logout">Logout</a>
       </div>
       <img id="taxi" src="./img/Logo_TaxiManager.png" alt="">
     </div>
@@ -234,7 +224,7 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
   <div id="box">
     <div id="user">
       <img id="imgPerfil" src="./img/itau-logo.png" alt="">
-      <span>Olá, Fulano. Seja bem-vindo</span>
+      <span>Olá, Carla. Seja bem-vindo</span>
       <img id="setabaixo" src="./img/dropdown.png" onclick="showBox()">
       <img id="setacima" src="./img/dropup.png" onclick="hideBox()">
     </div>
@@ -309,6 +299,12 @@ if(isset($_POST["start"]) && isset($_POST["end"]) && $_POST["start"]!= "" && $_P
   <div id="map" class="col-sm-12">
   </div>
 </body>
+
+
+  <script src="./js/variaveis.js"></script>
+  <script src="./js/historico.js"></script>
+  <script src="./js/favoritos.js"></script>
+
 
 </html>
 
