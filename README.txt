@@ -24,8 +24,6 @@ This work was made in `Vanilla JS`. The idea is to make it run in `internet expl
     
 	`"nodemon": "^1.11.0"`
     
-	`"oauth": "^0.9.15"`
-    
 	`"request": "^2.81.0"`
 
 ## Note
