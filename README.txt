@@ -1,31 +1,32 @@
-Synopsis
+## The Project
+Route calculation between two points. This was a project for a company that didn't implemented the work.
 
-Desafio proposto pela Mobint: fazer um mapa que calcule a melnhor rota entre dois pontos distintos colocados pelo usuário. Em seguinda, implantar o cálculo de rota com a API do Uber de cálculo de tempo e preço por corrida escolhida.
+## The Solution
+Route calculation between two points and then return the best alternative transport options.
 
-.node.js
-.packgae.json libs:
+## Technology
+This work was made in `Vanilla JS`. The idea is to make it run in `internet explorer 8` :fearful:
 
-    	"@google/maps": "^0.4.3",
-    
-	"body-parser": "^1.17.2",
-    
-	"express": "^4.15.4",
-    
-	"mongoose": "^4.11.7",
-    
-	"node-uber": "^1.0.0",
-    
-	"nodemon": "^1.11.0",
-    
-	"oauth": "^0.9.15",
-    
-	"request": "^2.81.0"
+## How to install
+`git clone`in a local repository
+----------
+`npm install` to get all the dependencies, which is:
 
-Enfrentei um pouco de dificuldade para implantar a API do Uber com a API do Google Maps (API utilizada para esse projeto). Express, request, nodemon foram bibliotecas instaladas para me auxiliar na API que criei para fazer a implantação.
+    	`"@google/maps": "^0.4.3"`
+    
+	`"body-parser": "^1.17.2"`
+    
+	`"express": "^4.15.4"`
+    
+	`"mongoose": "^4.11.7"`
+    
+	`"node-uber": "^1.0.0"`
+    
+	`"nodemon": "^1.11.0"`
+    
+	`"oauth": "^0.9.15"`
+    
+	`"request": "^2.81.0"`
 
-Para instalhar as bibliotecas utilizei npmjs no terminal do ubunto para o windows. Se utilizar o git clone é possível instalar as bibliotecas apenas com um npm install após npm init
-
-Projeto feito por: 
-
-Guilherme Barroso:
-https://github.com/gmbarroso/
+## Note
+Didn't had the right experience at the time, but I made what I was capable to do it. I got some difficulties to implement the Uber lib in the project and to make de Back-end.
